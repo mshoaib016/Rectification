@@ -1,95 +1,67 @@
-// Wallet Button
-const btn = document.getElementById("connectWalletBtn");
-btn.addEventListener("click", () => {
-  btn.classList.add("active");
-  window.location.href = "wallets.html";
-});
+const coins = [
+  {
+    name: "XRP",
+    symbol: "XRP",
+    price: "$2.91",
+    change: "+0.52%",
+    up: true,
+    icon: "https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png",
+  },
+  {
+    name: "Litecoin",
+    symbol: "LTC",
+    price: "$115.04",
+    change: "+0.23%",
+    up: true,
+    icon: "https://assets.coingecko.com/coins/images/2/large/litecoin.png",
+  },
+  {
+    name: "Bitcoin",
+    symbol: "BTC",
+    price: "$113,473",
+    change: "-0.05%",
+    up: false,
+    icon: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png",
+  },
+  {
+    name: "Ethereum",
+    symbol: "ETH",
+    price: "$4,296.67",
+    change: "+2.02%",
+    up: true,
+    icon: "https://assets.coingecko.com/coins/images/279/large/ethereum.png",
+  },
+  {
+    name: "EOS",
+    symbol: "EOS",
+    price: "$0.68",
+    change: "+1.48%",
+    up: true,
+    icon: "https://coin-images.coingecko.com/coins/images/738/large/CG_EOS_Icon.png?1731705232",
+  },
+];
 
-// Load GSAP
-const gsapScript = document.createElement("script");
-gsapScript.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
-document.head.appendChild(gsapScript);
+function loadTicker() {
+  const ticker = document.getElementById("ticker");
 
-// Load Ticker Data
-async function loadTicker() {
-  const url =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,eos,xrp,litecoin";
-
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    const ticker = document.getElementById("ticker");
-
-    ticker.innerHTML = "";
-
-    // Each coin HTML
-    const createCoinHTML = (coin) => {
-      let arrow, className;
-
-      // Custom rule: Bitcoin always red
-      if (coin.id === "bitcoin") {
-        arrow = "▼";
-        className = "price-down";
-      } else {
-        arrow = "▲";
-        className = "price-up";
-      }
-
-      return `
-        <a class="coin" href="https://www.coingecko.com/en/coins/${coin.id}" target="_blank">
-          <img src="${coin.image}" alt="${coin.name}">
-          <span class="name">${coin.name}</span>
-          <span class="${className}">$${coin.current_price.toLocaleString()}</span>
-          <span class="${className}">${coin.price_change_percentage_24h.toFixed(2)}% ${arrow}</span>
-        </a>
-      `;
-    };
-
-    let html = "";
-    data.forEach(coin => (html += createCoinHTML(coin)));
-
-    // Powered By
+  let html = "";
+  coins.forEach((c) => {
     html += `
-      <a class="powered" href="https://www.coingecko.com" target="_blank">
-        <span style="color:black;">Powered by</span>
-        <span style="color:#1dbf00;">CoinGecko</span>
-      </a>
-    `;
+            <div class="coin">
+                <img src="${c.icon}">
+                ${c.name} (${c.symbol})
+                <span class="${c.up ? "green" : "red"}">${c.price} (${
+      c.change
+    })</span>
+                <span class="${c.up ? "green" : "red"}">${
+      c.up ? "▲" : "▼"
+    }</span>
+            </div>
+        `;
+  });
 
-    // Duplicate for infinite scroll
-    ticker.innerHTML = html + html;
-
-  } catch (error) {
-    console.log("Error loading API:", error);
-  }
+  // Duplicate for infinite smooth scroll
+  ticker.innerHTML = html + html;
 }
 
 loadTicker();
-setInterval(loadTicker, 15000);
-
-// GSAP Infinite Scroll
-gsapScript.onload = () => {
-  setTimeout(startTickerGSAP, 500);
-};
-
-function startTickerGSAP() {
-  const ticker = document.getElementById("ticker");
-
-  function animate() {
-    const totalWidth = ticker.scrollWidth;
-
-    gsap.fromTo(
-      ticker,
-      { x: 0 },
-      {
-        x: -totalWidth / 2,
-        duration: 20,
-        ease: "linear",
-        repeat: -1,
-        onRepeat: () => gsap.set(ticker, { x: 0 })
-      }
-    );
-  }
-
-  animate();
-}

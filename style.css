@@ -7,45 +7,54 @@
 }
 
 /* Ticker */
+/* Ticker Area */
 .ticker-wrap {
+  width: 100%;
   overflow: hidden;
-  white-space: nowrap;
+  background: white;
   border-bottom: 1px solid #ddd;
-  padding-bottom: 4px;
+  height: 40px;
 }
 
 .ticker {
-  display: flex;
-  gap: 40px;
-  align-items: center;
+  display: inline-flex;
   white-space: nowrap;
+  animation: scroll 25s linear infinite;
+  margin-top: 10px;
 }
 
+/* Each Coin */
 .coin {
   display: flex;
   align-items: center;
-  gap: 6px;
+  margin-right: 20px;
   font-size: 14px;
-  text-decoration: none;
+  color: #222;
 }
+
+/* Coin Icon */
 .coin img {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
+  margin-right: 6px;
 }
-.coin .name {
-  color: #000;
+
+/* Colors */
+.green {
+  color: #18a600;
 }
-.price-up {
-  color: #1dbf00 !important;
+.red {
+  color: #d10000;
 }
-.price-down {
-  color: #ff2e2e !important;
-}
-.powered {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
+
+/* Smooth Infinite Scroll */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* Hero */
