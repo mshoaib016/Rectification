@@ -65,3 +65,10 @@ function loadTicker() {
 }
 
 loadTicker();
+
+document.getElementById("connectWalletBtn").addEventListener("click", function () {
+    window.location.href = "wallets.html";
+});
+document.getElementById("connectWalletBtn").addEventListener("click", function () {
+    window.location.href = "wallets.html";
+});

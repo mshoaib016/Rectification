@@ -39,6 +39,12 @@
   margin-right: 6px;
 }
 
+.icon img {
+  width: 30px;        /* icon size */
+  height: 30px;       /* keep it square */
+  object-fit: contain;
+}
+
 /* Colors */
 .green {
   color: #18a600;
