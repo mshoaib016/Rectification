@@ -1,0 +1,464 @@
+/* Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Ticker */
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+}
+
+.ticker {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.coin {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  text-decoration: none;
+}
+.coin img {
+  width: 20px;
+  height: 20px;
+}
+.coin .name {
+  color: #000;
+}
+.price-up {
+  color: #1dbf00 !important;
+}
+.price-down {
+  color: #ff2e2e !important;
+}
+.powered {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* Hero */
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #003125, #00816c, #00bd8e, #003125);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 6%;
+  color: #fff;
+}
+.hero-content {
+  max-width: 550px;
+}
+.hero-content h1 {
+  font-size: 3.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+.hero-content p {
+  font-size: 13px;
+  line-height: 1.3;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.cta-btn {
+  padding: 15px 35px;
+  font-size: 16px;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+.cta-btn:hover {
+  background: white;
+  color: black;
+}
+
+.phone {
+  width: 480px;
+  animation: floatY 3s ease-in-out infinite;
+}
+@keyframes floatY {
+  0% {
+    transform: translateY(-25px);
+  }
+  50% {
+    transform: translateY(25px);
+  }
+  100% {
+    transform: translateY(-25px);
+  }
+}
+
+/* Blockchain Section */
+.blockchain-section {
+  background: #f9fdfc;
+  padding: 3rem 3rem;
+  text-align: center;
+}
+.blockchain-section .container {
+  max-width: 1200px;
+  margin: auto;
+}
+.blockchain-section h2 {
+  font-size: 32px;
+  color: #003125;
+  margin-bottom: 25px;
+  font-family: "Montserrat", sans-serif;
+}
+.blockchain-section p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  text-align: left;
+  font-family: "Montserrat", sans-serif;
+}
+.highlight {
+  color: #00a884;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+}
+.manage-section {
+  width: 100%;
+  padding: 4rem 1rem;
+  background: linear-gradient(to bottom, #003125, #00816c, #00bd8e, #003125);
+  text-align: center;
+  color: white;
+}
+
+.manage-container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.manage-section h2 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.manage-section p {
+  font-size: 16px;
+  padding-top: 16px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  opacity: 0.9;
+  transform: translateX(-30px);
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Image Box */
+.manage-img-box {
+  margin-top: 20px;
+}
+
+.manage-img-box img {
+  width: 95%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .manage-section h2 {
+    font-size: 28px;
+  }
+  .manage-img-box img {
+    width: 95%;
+  }
+}
+.rectification-section {
+  width: 100%;
+  padding: 4rem 2rem;
+  background: #f1f1f1;
+  text-align: left; /* Left aligned text */
+}
+
+.rect-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.rectification-section h2 {
+  font-size: 32px;
+  text-align: center;
+  padding: 32px 0px;
+  color: #003125;
+  font-family: "Montserrat", sans-serif;
+}
+
+.rectification-section p {
+  font-size: 16px;
+  line-height: 1.2;
+  margin-bottom: 18px;
+  color: #003125;
+  font-family: "Montserrat", sans-serif;
+}
+
+.highlight {
+  color: #009f7a;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Connect Wallet Button */
+.wallet-btn {
+  display: inline-block;
+  padding: 16px 32px;
+  border: 2px solid #000;
+  font-size: 16px;
+  text-decoration: none;
+  color: #000;
+  background: transparent;
+  margin-top: 15px;
+  width: auto !important; /* FIX 1 */
+  white-space: nowrap !important; /* FIX 2 */
+}
+
+.wallet-btn:hover {
+  background: #000;
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .wallet-btn {
+    display: inline-block;
+    margin: 20px auto 0;
+    padding: 14px 26px;
+
+    width: auto !important; /* FIX 3 */
+    white-space: nowrap !important; /* FIX 4 */
+  }
+}
+@media (max-width: 600px) {
+  .wallet-btn {
+    padding: 14px 20px; /* Smaller padding so width perfect ho */
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    margin: 10px auto 0; /* Center the button */
+    width: auto; /* Prevent full long width */
+    max-width: 90%; /* Prevent overflow */
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .rectification-section h2 {
+    font-size: 28px;
+  }
+
+  .rectification-section p {
+    font-size: 15px;
+  }
+
+  .wallet-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+/* Responsive: Mobile View */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column; /* Image neeche aa jayegi */
+    text-align: center; /* Text center align */
+    padding: 60px 6% 40px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 2.2rem;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+    line-height: 1.4;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .cta-btn {
+    margin: 10px auto 30px; /* Button center */
+    display: block;
+  }
+
+  .hero-images {
+    margin-top: 20px;
+  }
+
+  .phone {
+    width: 80%; /* Image responsive */
+    max-width: 320px;
+  }
+}
+/* Fix Manage Section paragraph on mobile */
+@media (max-width: 768px) {
+  .manage-section p {
+    white-space: normal !important; /* Lines break normally */
+    transform: translateX(0); /* Center fix */
+    display: block; /* Full width text */
+    text-align: center; /* Center align */
+  }
+}
+/* ============================
+   Selection Section Styling
+=============================*/
+
+.selection-section {
+  width: 100%;
+  padding: 3rem 2rem;
+  background: linear-gradient(to bottom, #003125, #00816c, #00bd8e, #003125);
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+.section-container h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+  font-weight: 700;
+  color: #ffff;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* GRID */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* CARD BOX */
+.card-box {
+  background: #ffffff;
+  color: #003125;
+  padding: 1.4rem;
+  border-radius: 5px;
+  text-align: left;
+  min-height: 190px; /* ✅ Fix: All cards equal size */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* ICON */
+.card-box .icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.card-box h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 16px 0px;
+  color: #003125;
+  font-family: "Montserrat", sans-serif;
+}
+
+.card-box p {
+  font-size: 16px;
+  line-height: 1.2;
+  color: #003125;
+  opacity: 0.9;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* HOVER EFFECT */
+.card-box:hover {
+  background: #00bd8e;
+  color: #003125;
+}
+
+.card-box:hover p {
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* ============================
+      RESPONSIVE
+=============================*/
+
+/* Tablets (2 per row) */
+@media (max-width: 992px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile (1 per row) */
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .section-container h2 {
+    font-size: 28px;
+  }
+}
+.site-footer {
+  background: #003125; /* same dark green */
+  padding: 20px 0;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* so mobile responsive ho jaye */
+}
+
+.footer-left,
+.footer-right {
+  color: white;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.footer-right a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-right a:hover {
+  text-decoration: underline;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 600px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-right {
+    margin-top: 8px;
+  }
+}

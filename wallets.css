@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  background: linear-gradient(to bottom, #003125, #00816c, #00bd8e, #003125);
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  text-align: center;
+  color: white;
+  font-size: 40px;
+  margin-top: 40px;
+}
+
+/* MAIN GRID */
+.wallet-container {
+  width: 90%;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+}
+
+/* CARDS */
+.wallet-card {
+  background: #003228;
+  border-radius: 6px;
+  padding: 25px 5px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.wallet-card:hover {
+  border: 2px solid #11ffee;
+  box-shadow: 0 0 12px #11ffee;
+}
+
+.wallet-card img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
+  border-radius: 50px;
+}
+
+.wallet-card p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* ==========================
+      RESPONSIVE SETTINGS
+   ========================== */
+
+/* Large Tablets - 4 Columns */
+@media (max-width: 1200px) {
+  .wallet-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablets - 3 Columns */
+@media (max-width: 900px) {
+  .wallet-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile - 2 Columns */
+@media (max-width: 600px) {
+  .wallet-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .title {
+    font-size: 30px;
+  }
+}
+
+/* Small Mobile - 1 Column */
+@media (max-width: 400px) {
+  .wallet-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
