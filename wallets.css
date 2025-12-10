@@ -1,7 +1,7 @@
 body {
   margin: 0;
   background: linear-gradient(to bottom, #003125, #00816c, #00bd8e, #003125);
-  font-family: Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .title {
@@ -82,4 +82,76 @@ body {
   .wallet-container {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-box {
+  background: #003228;
+  padding: 20px;
+  width: 80%;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #006b56;
+  border-radius: 20px;
+  margin: 10px 0;
+}
+
+#progressFill {
+  height: 100%;
+  width: 0%;
+  background: #00ffcc;
+  border-radius: 20px;
+  transition: 0.2s;
+}
+
+.popup button {
+  margin-top: 10px;
+  padding: 10px;
+  background: #00cda6;
+  color: #003228;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+}
+
+/* Wallet card buttons */
+.wallet-card button {
+  margin-top: 8px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  background: #004c3d;
+  color: white;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+/* Space between buttons */
+.wallet-card button + button {
+  margin-top: 12px;
+}
+
+/* Hover Glow Animation (SAME AS CARD) */
+.wallet-card button:hover {
+  border: 2px solid #11ffee;
+  box-shadow: 0 0 12px #11ffee;
+  transform: scale(1.03);
 }

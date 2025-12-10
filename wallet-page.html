@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wallet Verification</title>
     <link rel="stylesheet" href="wallet-page.css" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
   </head>
+
   <body>
     <div class="container">
       <div class="card-box">
@@ -39,5 +44,34 @@
     </div>
 
     <script src="wallet-page.js"></script>
+
+    <!-- Install PWA button -->
+    <button id="installBtn" style="display:none; margin:20px auto; padding:10px;">
+      Install Wallet App
+    </button>
+
+    <!-- PWA Install Logic -->
+    <script>
+      let deferredPrompt;
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        if (!/Mobi|Android/i.test(navigator.userAgent)) return; // Mobile only
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById("installBtn").style.display = "block";
+      });
+
+      document.getElementById("installBtn").addEventListener("click", () => {
+        if (deferredPrompt) deferredPrompt.prompt();
+        deferredPrompt = null;
+      });
+    </script>
+
+    <!-- Register Service Worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
+      }
+    </script>
   </body>
 </html>

