@@ -1,35 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connect Wallet</title>
-    <link rel="stylesheet" href="wallets.css" />
-    <link rel="manifest" href="manifest.json" />
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("service-worker.js");
-      }
-    </script>
-  </head>
-  <body>
+    <link rel="stylesheet" href="wallets.css">
+</head>
+<body>
+
     <h1 class="title">Connect Wallet</h1>
 
     <div class="wallet-container" id="walletContainer">
-      <!-- Cards auto-add by JS -->
+        <!-- Cards auto-add by JS -->
     </div>
 
-    <script src="wallets.js"></script>
-    <div id="pwaPopup" class="popup">
-      <div class="popup-box">
-        <h2>Install Your Wallet</h2>
-        <p id="progressText">Loading… 0%</p>
-        <div class="progress-bar">
-          <div id="progressFill"></div>
-        </div>
-        <button id="installBtn" style="display: none">Install</button>
-        <button onclick="closePopup()">Close</button>
-      </div>
-    </div>
-  </body>
+<script src="wallets.js"></script>
+</body>
 </html>

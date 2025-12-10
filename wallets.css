@@ -129,29 +129,81 @@ body {
   border: none;
   border-radius: 6px;
 }
-
-/* Wallet card buttons */
-.wallet-card button {
-  margin-top: 8px;
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
-  font-size: 16px;
-  background: #004c3d;
-  color: white;
-  cursor: pointer;
-  transition: 0.25s;
+/* ICON STYLING */
+.wallet-card .icon-btn {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    filter: brightness(0) invert(1);  /* convert icon to white */
+    transition: 0.25s;
 }
 
-/* Space between buttons */
-.wallet-card button + button {
-  margin-top: 12px;
+.wallet-card .icon-btn:hover {
+    transform: scale(1.12);
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px #11ffee);
+}
+/* ICONS STYLE */
+.wallet-card img[src*="downloads"],
+.wallet-card img[src*="rocket"] {
+    width: 30px !important;       /* icon size */
+    height: 30px !important;
+    filter: brightness(0) invert(1);   /* make icon white */
+    cursor: pointer;
+    border-radius: 0;
+    transition: 0.25s;
 }
 
-/* Hover Glow Animation (SAME AS CARD) */
-.wallet-card button:hover {
-  border: 2px solid #11ffee;
-  box-shadow: 0 0 12px #11ffee;
-  transform: scale(1.03);
+/* Hover effect */
+.wallet-card img[src*="downloads"]:hover,
+.wallet-card img[src*="rocket"]:hover {
+    transform: scale(1.12);
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px #11ffee);
+}
+.wallet-card img[src*="rocket"] {
+    width: 35px !important;
+    height: 35px !important;
+}
+.icon-btn {
+    position: relative;
+    width: 40px;        /* same width for both icons */
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Icon stays centered */
+.icon-btn img {
+    width: 28px;
+    height: 28px;
+    transition: 0.2s;
+}
+
+/* Text hidden by default */
+.icon-btn span {
+    position: absolute;
+    font-size: 12px;
+    color: white;
+    white-space: nowrap;
+    opacity: 0;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
+/* Hover: hide icon, show text */
+.icon-btn:hover img {
+    opacity: 0;
+}
+
+.icon-btn:hover span {
+    opacity: 1;
+}
+
+/* Row always straight */
+.icon-row {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin-top: 12px;
 }

