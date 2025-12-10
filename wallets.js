@@ -56,6 +56,7 @@ const wallets = [
   "Exodus",
   "Binance",
   "Bitget",
+  "Poloniex",
 ];
 
 const container = document.getElementById("walletContainer");
