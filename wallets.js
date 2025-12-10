@@ -99,8 +99,8 @@ wallets.forEach((name) => {
       <img src="wallet-icons/${imageName}" alt="${name}">
       <p>${name}</p>
 
-     <div class="icon-row">
-    <div class="icon-btn download-btn" onclick="showPWAPopup()">
+    <div class="icon-row">
+    <div class="icon-btn download-btn" onclick="installWallet('${name}')">
         <img src="assets/icons/downloads.png">
         <span>Install Wallet</span>
     </div>
@@ -110,6 +110,8 @@ wallets.forEach((name) => {
         <span>Open Wallet</span>
     </div>
 </div>
+<div class="icon-btn download-btn" onclick="installWallet('${name}')">
+
 
 
     </div>
@@ -166,4 +168,28 @@ document.getElementById("installBtn").onclick = async () => {
 // Close popup
 function closePopup() {
   document.getElementById("pwaPopup").style.display = "none";
+}
+function installWallet(walletName) {
+  let progress = 0;
+  document.getElementById("pwaPopup").style.display = "flex";
+
+  let interval = setInterval(() => {
+    progress++;
+    document.getElementById(
+      "progressText"
+    ).innerText = `Installing… ${progress}%`;
+    document.getElementById("progressFill").style.width = progress + "%";
+
+    if (progress >= 100) {
+      clearInterval(interval);
+
+      document.getElementById("progressText").innerText = "Done!";
+      document.getElementById("progressFill").style.width = "100%";
+
+      setTimeout(() => {
+        closePopup();
+        openWallet(walletName); // ← Wallet auto open
+      }, 700);
+    }
+  }, 40);
 }
