@@ -286,3 +286,72 @@ body {
     opacity: 1;
   }
 }
+/* Progress Popup Overlay */
+#pwaPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Progress Box (MODERN CARD) */
+#pwaPopup .popup-box {
+  background: #ffffff;
+  width: 85%;
+  max-width: 330px;
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.35);
+  animation: popupFade 0.25s ease;
+}
+
+/* Progress Text */
+#progressText {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* Progress Bar Outer */
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+/* Progress Fill */
+#progressFill {
+  height: 100%;
+  width: 0%;
+  background: #0066ff;
+  border-radius: 10px;
+  transition: width 0.15s linear;
+}
+
+/* Remove buttons from progress popup */
+#pwaPopup button {
+  display: none !important;
+}
+
+/* Popup Fade Animation */
+@keyframes popupFade {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
