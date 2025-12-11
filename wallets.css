@@ -241,3 +241,47 @@ body {
   border: none;
   font-size: 16px;
 }
+/* New Install Wallet Popup */
+#installPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+#installPopup .popup-box {
+  background: white;
+  padding: 25px;
+  width: 80%;
+  max-width: 350px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.popup-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background: #00d6b8;
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.close-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #eee;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+}
