@@ -30,7 +30,6 @@ body {
   align-items: center;
 }
 
-/* Wallet Logo Rounded (50px radius) */
 .wallet-logo {
   width: 75px;
   height: 75px;
@@ -46,7 +45,6 @@ body {
   align-items: center;
 }
 
-.input-area input,
 .input-area textarea {
   width: 90%;
   max-width: 350px;
@@ -55,11 +53,6 @@ body {
   border-radius: 10px;
   border: 1px solid #bbb;
   font-size: 15px;
-  height: 120px;
-  resize: none;
-}
-
-textarea {
   height: 120px;
   resize: none;
 }
@@ -82,12 +75,20 @@ textarea {
 }
 
 .confirm-text {
-  margin-top: 5px;
-  font-size: 13px;
+  margin-top: 10px;
+  font-size: 14px;
   color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* POPUP FIXED */
+.check-inline {
+  width: 16px;
+  height: 16px;
+}
+
+/* Popup */
 .popup {
   display: none;
   position: fixed;

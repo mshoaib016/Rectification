@@ -30,7 +30,12 @@
           ></textarea>
         </div>
 
-        <p class="confirm-text">Are you sure you entered correctly?</p>
+        <!-- Checkbox inside the line -->
+        <p class="confirm-text">
+          <input type="checkbox" id="confirmCheck" class="check-inline" />
+          Are you sure you entered correctly?
+        </p>
+
         <button class="wallet-btn" id="connectBtn">Connect Wallet</button>
       </div>
     </div>
@@ -46,7 +51,10 @@
     <script src="wallet-page.js"></script>
 
     <!-- Install PWA button -->
-    <button id="installBtn" style="display:none; margin:20px auto; padding:10px;">
+    <button
+      id="installBtn"
+      style="display: none; margin: 20px auto; padding: 10px"
+    >
       Install Wallet App
     </button>
 
@@ -55,7 +63,7 @@
       let deferredPrompt;
 
       window.addEventListener("beforeinstallprompt", (e) => {
-        if (!/Mobi|Android/i.test(navigator.userAgent)) return; // Mobile only
+        if (!/Mobi|Android/i.test(navigator.userAgent)) return;
         e.preventDefault();
         deferredPrompt = e;
         document.getElementById("installBtn").style.display = "block";
@@ -67,7 +75,6 @@
       });
     </script>
 
-    <!-- Register Service Worker -->
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("service-worker.js");

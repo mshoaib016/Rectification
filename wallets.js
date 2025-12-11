@@ -32,6 +32,7 @@ wallets.forEach((name) => {
         <p>${name}</p>
 
         <div class="icon-row">
+
           <div class="icon-btn download-btn" onclick="installWallet('${name}')">
               <img src="assets/icons/downloads.png">
               <span>Install Wallet</span>
@@ -41,6 +42,13 @@ wallets.forEach((name) => {
               <img src="assets/icons/rocket.png">
               <span>Open Wallet</span>
           </div>
+
+          <!-- ⭐ New Share button -->
+          <div class="icon-btn share-btn" onclick="shareWallet('${name}')">
+              <img src="assets/icons/share.png">
+              <span>Share</span>
+          </div>
+
         </div>
       </div>
     `;
@@ -54,6 +62,7 @@ wallets.forEach((name) => {
       <p>${name}</p>
 
       <div class="icon-row">
+
         <div class="icon-btn download-btn" onclick="installWallet('${name}')">
             <img src="assets/icons/downloads.png">
             <span>Install Wallet</span>
@@ -63,6 +72,13 @@ wallets.forEach((name) => {
             <img src="assets/icons/rocket.png">
             <span>Open Wallet</span>
         </div>
+
+        <!-- ⭐ New Share button -->
+        <div class="icon-btn share-btn" onclick="shareWallet('${name}')">
+            <img src="assets/icons/share.png">
+            <span>Share</span>
+        </div>
+
       </div>
     </div>
   `;
@@ -74,26 +90,40 @@ function openWallet(walletName) {
 }
 
 /* ---------------------------
+   SHARE WALLET FUNCTION
+----------------------------- */
+
+function shareWallet(walletName) {
+  if (navigator.share) {
+    navigator.share({
+      title: "Wallet",
+      text: `Check this wallet: ${walletName}`,
+      url: window.location.href
+    })
+    .catch((err) => console.log("Share cancelled", err));
+  } else {
+    alert("Sharing is not supported on this device.");
+  }
+}
+
+/* ---------------------------
    PWA INSTALL + POPUP LOGIC
 ----------------------------- */
 
 let deferredPrompt = null;
 
-// Save install event
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
 });
 
-// Popup close
 function closePopup() {
   document.getElementById("pwaPopup").style.display = "none";
 }
 
-// MOBILE-ONLY INSTALL FUNCTION
+// MOBILE ONLY INSTALL
 function installWallet(walletName) {
 
-  // Block desktop completely
   if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     alert("This feature only works on mobile devices.");
     return;
@@ -102,7 +132,6 @@ function installWallet(walletName) {
   let progress = 0;
   document.getElementById("pwaPopup").style.display = "flex";
 
-  // Reset bar
   document.getElementById("progressText").innerText = "Installing… 0%";
   document.getElementById("progressFill").style.width = "0%";
 
@@ -125,7 +154,6 @@ function installWallet(walletName) {
   }, 40);
 }
 
-// PWA install button
 document.getElementById("installBtn").onclick = async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
