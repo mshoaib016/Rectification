@@ -39,6 +39,19 @@
         <button onclick="closePwaPopup2()">Cancel</button>
       </div>
     </div>
+    <div id="installPopup" class="popup-overlay">
+      <div class="popup-box">
+        <h3>Install Wallet</h3>
+        <p>Do you want to install this app?</p>
+
+        <div class="install-btn-row">
+          <button id="confirmInstallBtn">Install Now</button>
+          <button id="closeInstallBtn" onclick="closeInstallPopup()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script src="wallets.js"></script>
   </body>
