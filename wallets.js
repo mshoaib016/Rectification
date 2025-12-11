@@ -145,3 +145,32 @@ function installWallet(walletName) {
 
   alert("Installing... (simulated)");
 }
+function shareWallet(walletName) {
+  // Generate correct wallet page URL
+  const shareUrl =
+    `${window.location.origin}/wallet-page.html?wallet=` +
+    encodeURIComponent(walletName);
+
+  // If device supports Web Share API
+  if (navigator.share) {
+    navigator
+      .share({
+        title: `${walletName} Wallet`,
+        text: `Open this wallet page: ${walletName}`,
+        url: shareUrl,
+      })
+      .catch((err) => {
+        console.log("Share canceled", err);
+      });
+  } else {
+    // Fallback: Copy link to clipboard
+    navigator.clipboard
+      .writeText(shareUrl)
+      .then(() => {
+        alert("Link copied:\n" + shareUrl);
+      })
+      .catch(() => {
+        alert("Sharing not supported.");
+      });
+  }
+}
