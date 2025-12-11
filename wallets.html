@@ -6,56 +6,37 @@
     <title>Connect Wallet</title>
     <link rel="stylesheet" href="wallets.css" />
   </head>
+
   <body>
     <h1 class="title">Connect Wallet</h1>
 
-    <div class="wallet-container" id="walletContainer">
-      <!-- Cards auto-add by JS -->
-    </div>
+    <div class="wallet-container" id="walletContainer"></div>
+
     <div id="pwaPopup" class="popup">
       <div class="popup-box">
-        <p id="progressText">Loading… 0%</p>
+        <p id="progressText">Installing… 0%</p>
 
         <div class="progress-bar">
           <div id="progressFill"></div>
         </div>
+      </div>
+    </div>
 
-        <button id="pwaInstallBtn">Install Wallet</button>
-        <button onclick="closePopup()">Close</button>
-      </div>
-    </div>
-    <div id="pwaPopup2" class="new-install-popup">
-      <div class="popup-box">
-        <h2>Install Wallet App</h2>
-        <button id="realInstallBtn">Install Now</button>
-        <button onclick="closePwaPopup2()">Cancel</button>
-      </div>
-    </div>
-    <!-- New Install Wallet Popup -->
     <div id="installPopup" class="popup">
-      <div class="popup-box">
-        <h2>Install Wallet</h2>
-        <p>Do you want to install this wallet?</p>
-
-        <button id="confirmInstallBtn" class="popup-btn">Yes, Install</button>
-        <button onclick="closeInstallPopup()" class="close-btn">Close</button>
-      </div>
-    </div>
-    <div id="installPopup" class="install-popup">
-      <div class="popup-box">
-        <h3>Install Wallet App</h3>
-        <p>Do you want to install this app?</p>
-        <button id="confirmInstallBtn" class="btn install">Install Now</button>
-        <button onclick="closeInstallPopup()" class="btn close">Close</button>
-      </div>
-    </div>
-    <div id="installPopup" class="install-popup">
       <div class="popup-box">
         <h3>Install Wallet</h3>
         <p>Do you want to install this app?</p>
 
         <button id="confirmInstallBtn" class="btn install">Install Now</button>
         <button onclick="closeInstallPopup()" class="btn close">Close</button>
+      </div>
+    </div>
+
+    <div id="pwaPopup2" class="popup">
+      <div class="popup-box">
+        <h2>Install Wallet App</h2>
+        <button id="realInstallBtn">Install Now</button>
+        <button onclick="closePwaPopup2()">Cancel</button>
       </div>
     </div>
 
