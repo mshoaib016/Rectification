@@ -60,7 +60,6 @@ function loadTicker() {
         `;
   });
 
-  // Duplicate for infinite smooth scroll
   ticker.innerHTML = html + html;
 }
 

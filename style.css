@@ -6,9 +6,12 @@
   font-family: "Montserrat", sans-serif;
 }
 
-/* Ticker */
-/* Ticker Area */
-.ticker-wrap {
+#ticker {
+  display: none !important;
+}
+
+
+/* .ticker-wrap {
   width: 100%;
   overflow: hidden;
   background: white;
@@ -23,7 +26,6 @@
   margin-top: 10px;
 }
 
-/* Each Coin */
 .coin {
   display: flex;
   align-items: center;
@@ -32,7 +34,6 @@
   color: #222;
 }
 
-/* Coin Icon */
 .coin img {
   width: 19px;
   height: 19px;
@@ -40,12 +41,11 @@
 }
 
 .icon img {
-  width: 30px;        /* icon size */
-  height: 30px;       /* keep it square */
+  width: 30px;
+  height: 30px;
   object-fit: contain;
 }
 
-/* Colors */
 .green {
   color: #18a600;
 }
@@ -53,7 +53,6 @@
   color: #d10000;
 }
 
-/* Smooth Infinite Scroll */
 @keyframes scroll {
   from {
     transform: translateX(0);
@@ -61,7 +60,7 @@
   to {
     transform: translateX(-50%);
   }
-}
+} */
 
 /* Hero */
 .hero {
