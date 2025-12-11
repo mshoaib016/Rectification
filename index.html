@@ -398,22 +398,28 @@
     </footer>
     <script src="ticker.js"></script>
     <script src="script.js"></script>
+
     <script>
       let deferredPrompt;
 
+      // PWA install event
       window.addEventListener("beforeinstallprompt", (e) => {
         e.preventDefault();
         deferredPrompt = e;
+        console.log("PWA install available");
       });
 
+      // PWA Install Button
       document
         .getElementById("pwaInstallBtn")
         .addEventListener("click", async () => {
           if (deferredPrompt) {
             deferredPrompt.prompt();
+            const result = await deferredPrompt.userChoice;
             deferredPrompt = null;
+            console.log("User installed:", result);
           } else {
-            alert("PWA already installed.");
+            alert("App already installed or install prompt not ready.");
           }
         });
     </script>

