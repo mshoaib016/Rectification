@@ -6,8 +6,8 @@
     <title>Wallet Verification</title>
     <link rel="stylesheet" href="wallet-page.css" />
 
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json" />
+    <!-- PWA Manifest (Correct Path) -->
+    <link rel="manifest" href="/Rectification/manifest.json" />
     <meta name="theme-color" content="#ffffff" />
   </head>
 
@@ -30,7 +30,6 @@
           ></textarea>
         </div>
 
-        <!-- Checkbox inside the line -->
         <p class="confirm-text">
           <input type="checkbox" id="confirmCheck" class="check-inline" />
           Are you sure you entered correctly?
@@ -50,7 +49,7 @@
 
     <script src="wallet-page.js"></script>
 
-    <!-- Install PWA button -->
+    <!-- Install PWA Button -->
     <button
       id="installBtn"
       style="display: none; margin: 20px auto; padding: 10px"
@@ -60,24 +59,34 @@
 
     <!-- PWA Install Logic -->
     <script>
-      let deferredPrompt;
+      let deferredPrompt = null;
 
       window.addEventListener("beforeinstallprompt", (e) => {
-        if (!/Mobi|Android/i.test(navigator.userAgent)) return;
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (!isMobile) return;
+
         e.preventDefault();
         deferredPrompt = e;
+
         document.getElementById("installBtn").style.display = "block";
       });
 
-      document.getElementById("installBtn").addEventListener("click", () => {
-        if (deferredPrompt) deferredPrompt.prompt();
+      document.getElementById("installBtn").addEventListener("click", async () => {
+        if (!deferredPrompt) {
+          alert("Install prompt not ready.");
+          return;
+        }
+
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
         deferredPrompt = null;
       });
     </script>
 
+    <!-- Correct Service Worker Registration -->
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("service-worker.js");
+        navigator.serviceWorker.register("/Rectification/service-worker.js");
       }
     </script>
   </body>
