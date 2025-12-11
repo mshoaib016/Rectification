@@ -246,7 +246,7 @@
           <a href="wallets.html" style="text-decoration: none; color: inherit">
             <div class="card-box">
               <div class="icon">
-                <img src="assets/i/Staking Issues.png" alt="" />
+                <img src="assets/icons/Staking Issues.png" alt="" />
               </div>
               <h3>Staking Issues</h3>
               <p>Click here for Staking issues</p>
@@ -398,5 +398,24 @@
     </footer>
     <script src="ticker.js"></script>
     <script src="script.js"></script>
+    <script>
+      let deferredPrompt;
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+      });
+
+      document
+        .getElementById("pwaInstallBtn")
+        .addEventListener("click", async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt = null;
+          } else {
+            alert("PWA already installed.");
+          }
+        });
+    </script>
   </body>
 </html>
