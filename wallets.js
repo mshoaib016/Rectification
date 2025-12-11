@@ -160,11 +160,14 @@ function shareWallet(walletName) {
 
 let deferredPrompt = null;
 
+// Save install event
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
+  console.log("Install event captured");
 });
 
+// Close popup
 function closePopup() {
   document.getElementById("pwaPopup").style.display = "none";
 }
@@ -198,11 +201,11 @@ function installWallet(walletName) {
       setTimeout(async () => {
         closePopup();
 
-        // Trigger PWA Install popup here
-        if (window.deferredPrompt) {
-          window.deferredPrompt.prompt();
-          await window.deferredPrompt.userChoice;
-          window.deferredPrompt = null;
+        // Show install prompt
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          await deferredPrompt.userChoice;
+          deferredPrompt = null;
         } else {
           alert("Install prompt not ready.");
         }
@@ -211,9 +214,13 @@ function installWallet(walletName) {
   }, 40);
 }
 
+// Install button inside popup
 document.getElementById("installBtn").onclick = async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
     deferredPrompt = null;
+  } else {
+    alert("Install prompt not ready.");
   }
 };
