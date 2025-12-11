@@ -405,7 +405,7 @@
 .card-box:hover {
   background: #00bd8e;
   color: #003125;
-  transform: scale(10.05);
+  transform: scale(1.05);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
