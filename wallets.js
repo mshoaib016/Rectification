@@ -117,20 +117,15 @@ function shareWallet(walletName) {
   if (navigator.share) {
     navigator
       .share({
-        title: walletName,
+        title: "Wallet",
         text: `Check this wallet: ${walletName}`,
-        url: `wallet-page.html?wallet=${walletName}` // ✔ Direct wallet page
+        url: window.location.href,
       })
       .catch(() => {});
   } else {
-    // Fallback: copy wallet page link
-    const link = `wallet-page.html?wallet=${walletName}`;
-    navigator.clipboard.writeText(link).then(() => {
-      alert("Wallet link copied!");
-    });
+    alert("Sharing not supported.");
   }
 }
-
 
 /* 🔥 IMPORTANT:
    Removing ALL PWA install popup triggers

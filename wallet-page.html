@@ -42,6 +42,22 @@
     <!-- Popup -->
     <div id="popup" class="popup">
       <div class="popup-content">
+        <!-- ⭐ NEW: PROGRESS CARD WALLET LOGO + NAME ⭐ -->
+        <div
+          id="progressInfo"
+          class="progress-info"
+          style="
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+          "
+        >
+          <img id="progressLogo" style="width: 35px; height: 35px" />
+          <p id="progressWalletName" style="font-weight: bold"></p>
+        </div>
+        <!-- ⭐ END NEW BLOCK ⭐ -->
+
         <p id="popupText"></p>
         <button class="close-btn" id="closePopupBtn">OK</button>
       </div>
@@ -71,16 +87,18 @@
         document.getElementById("installBtn").style.display = "block";
       });
 
-      document.getElementById("installBtn").addEventListener("click", async () => {
-        if (!deferredPrompt) {
-          alert("Install prompt not ready.");
-          return;
-        }
+      document
+        .getElementById("installBtn")
+        .addEventListener("click", async () => {
+          if (!deferredPrompt) {
+            alert("Install prompt not ready.");
+            return;
+          }
 
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        deferredPrompt = null;
-      });
+          deferredPrompt.prompt();
+          await deferredPrompt.userChoice;
+          deferredPrompt = null;
+        });
     </script>
 
     <!-- Correct Service Worker Registration -->
