@@ -3,7 +3,7 @@ console.log("Wallets page loaded!");
 const wallets = [
   "Meta Mask",
   "Poloniex",
-  "Trust",
+  "Trust Wallet",
   "Solflare",
   "WalletConnect",
   "Terra",
@@ -117,75 +117,36 @@ function shareWallet(walletName) {
   if (navigator.share) {
     navigator
       .share({
-        title: "Wallet",
+        title: walletName,
         text: `Check this wallet: ${walletName}`,
-        url: window.location.href,
+        url: `wallet-page.html?wallet=${walletName}` // ✔ Direct wallet page
       })
       .catch(() => {});
   } else {
-    alert("Sharing not supported.");
+    // Fallback: copy wallet page link
+    const link = `wallet-page.html?wallet=${walletName}`;
+    navigator.clipboard.writeText(link).then(() => {
+      alert("Wallet link copied!");
+    });
   }
 }
 
-let deferredPrompt = null;
 
+/* 🔥 IMPORTANT:
+   Removing ALL PWA install popup triggers
+*/
 window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
+  e.preventDefault(); // Disable PWA prompt
 });
 
-function closePopup() {
-  document.getElementById("pwaPopup").style.display = "none";
-}
-
-function openInstallPopup() {
-  document.getElementById("installPopup").style.display = "flex";
-}
-
-function closeInstallPopup() {
-  document.getElementById("installPopup").style.display = "none";
-}
-
-document.getElementById("confirmInstallBtn").onclick = async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    closeInstallPopup();
-  } else {
-    alert("Install prompt not ready.");
-  }
-};
-
+/* ✔ Install wallet progress (safe to keep)
+   NO popup will appear now
+*/
 function installWallet(walletName) {
   if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     alert("Install only works on mobile.");
     return;
   }
 
-  let progress = 0;
-  document.getElementById("pwaPopup").style.display = "flex";
-
-  document.getElementById("progressText").innerText = "Installing… 0%";
-  document.getElementById("progressFill").style.width = "0%";
-
-  let interval = setInterval(() => {
-    progress++;
-    document.getElementById(
-      "progressText"
-    ).innerText = `Installing… ${progress}%`;
-    document.getElementById("progressFill").style.width = progress + "%";
-
-    if (progress >= 100) {
-      clearInterval(interval);
-
-      document.getElementById("progressText").innerText = "Done!";
-      document.getElementById("progressFill").style.width = "100%";
-
-      setTimeout(() => {
-        closePopup();
-        openInstallPopup();
-      }, 700);
-    }
-  }, 40);
+  alert("Installing... (simulated)");
 }
