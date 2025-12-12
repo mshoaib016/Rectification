@@ -9,8 +9,10 @@ body {
   color: white;
   font-size: 40px;
   margin-top: 40px;
+  font-weight: 700;
 }
 
+/* Wallet Grid */
 .wallet-container {
   width: 90%;
   margin: 40px auto;
@@ -19,33 +21,111 @@ body {
   gap: 1.5rem;
 }
 
+/* Wallet Card */
 .wallet-card {
   background: #003228;
-  border-radius: 6px;
-  padding: 25px 5px;
+  border-radius: 16px;
+  padding: 20px;
   text-align: center;
   color: white;
   cursor: pointer;
   transition: 0.25s;
+  box-shadow: 0 0 10px rgba(0, 255, 200, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .wallet-card:hover {
   border: 2px solid #11ffee;
-  box-shadow: 0 0 12px #11ffee;
+  box-shadow: 0 0 15px #11ffee;
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
 }
 
 .wallet-card img {
   width: 60px;
   height: 60px;
-  margin-bottom: 8px;
+  margin: 0 auto 10px;
   border-radius: 50px;
 }
 
 .wallet-card p {
   font-size: 18px;
   font-weight: bold;
+  margin-bottom: 15px;
 }
 
+/* Icon Buttons */
+.icon-row {
+  display: flex;
+  flex-direction: row; /* horizontal row */
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.icon-btn {
+  position: relative;
+  width: 40px; /* fixed width so text & icon same position */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+}
+
+.icon-btn span {
+  position: absolute;
+  color: #fff;
+  opacity: 0;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.icon-btn:hover span {
+  opacity: 1;
+}
+
+.icon-btn span {
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.icon-btn:hover span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.icon-btn img {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  transition: 0.3s;
+  opacity: 1;
+  border-radius: 0%;
+  filter: brightness(0) invert(1);
+}
+
+.icon-btn:hover img {
+  opacity: 0; /* icon hide */
+}
+
+.icon-btn:hover {
+  background: rgba(0, 255, 200, 0.18);
+  box-shadow: 0 0 10px #11ffee;
+}
+
+.icon-btn:hover span {
+  opacity: 1; /* text show */
+}
+
+/* Responsive Grid */
 @media (max-width: 1200px) {
   .wallet-container {
     grid-template-columns: repeat(4, 1fr);
@@ -62,7 +142,6 @@ body {
   .wallet-container {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .title {
     font-size: 30px;
   }
@@ -74,96 +153,7 @@ body {
   }
 }
 
-/* === KEY LOGIN PAGE (SAME AS EMAIL LOGIN DESIGN) === */
-
-body {
-  margin: 0;
-  background: linear-gradient(to bottom, #003125, #00816c, #00bd8e, #003125);
-  font-family: "Montserrat", sans-serif;
-}
-
-/* Center Card (Same as Email Page) */
-.card {
-  background: #003228;
-  width: 90%;
-  max-width: 380px;
-  margin: 40px auto;
-  padding: 25px;
-  border-radius: 12px;
-  color: white;
-  text-align: center;
-  box-shadow: 0 0 15px rgba(0, 255, 200, 0.4);
-}
-
-/* Logo Same Style */
-.logo {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  margin-bottom: 15px;
-}
-
-/* Wallet Name Same Style */
-#walletName {
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 25px;
-  color: #bfffe9;
-}
-
-/* Input Boxes Same Style */
-.input-box {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: 14px;
-  margin: 10px 0;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  color: #bfffe9;
-  font-size: 15px;
-  resize: none;
-  overflow: hidden;
-}
-
-.input-box:focus {
-  border: 1px solid #11ffee;
-  box-shadow: 0 0 10px #11ffee;
-}
-
-.input-box::placeholder {
-  color: #d9fff7;
-}
-
-/* Checkbox Row Same Spacing */
-.checkbox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  margin: 15px 0 22px;
-  color: #bfffe9;
-}
-
-/* Button Same Design as Email Page */
-.btn {
-  width: 100%;
-  padding: 14px;
-  background: #00d6b8;
-  border: none;
-  border-radius: 12px;
-  color: black;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-
-.btn:hover {
-  background: #11ffee;
-  box-shadow: 0 0 12px #11ffee;
-}
+/* Popup */
 .popup {
   position: fixed;
   top: 0;
@@ -177,7 +167,6 @@ body {
   z-index: 99999;
 }
 
-/* Popup Box */
 .popup-box {
   width: 85%;
   max-width: 330px;
@@ -197,7 +186,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* Progress bar */
+/* Progress Bar */
 .progress-bar {
   width: 100%;
   height: 12px;
@@ -224,7 +213,7 @@ body {
   transition: 0.3s;
 }
 
-/* Animation */
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -234,10 +223,4 @@ body {
     opacity: 1;
     transform: scale(1);
   }
-}
-
-/* Tick Bump Animation */
-.tick-bump {
-  opacity: 1 !important;
-  transform: scale(1.2) !important;
 }

