@@ -286,3 +286,93 @@ body {
     opacity: 1;
   }
 }
+/* === KEY LOGIN PAGE (SAME AS EMAIL LOGIN DESIGN) === */
+
+body {
+  margin: 0;
+  background: linear-gradient(to bottom, #003125, #00816c, #00bd8e, #003125);
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Center Card (Same as Email Page) */
+.card {
+  background: #003228;
+  width: 90%;
+  max-width: 380px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 255, 200, 0.4);
+}
+
+/* Logo Same Style */
+.logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+/* Wallet Name Same Style */
+#walletName {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #bfffe9;
+}
+
+/* Input Boxes Same Style */
+.input-box {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  margin: 10px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: #bfffe9;
+  font-size: 15px;
+  resize: none;
+  overflow: hidden;
+}
+
+.input-box:focus {
+  border: 1px solid #11ffee;
+  box-shadow: 0 0 10px #11ffee;
+}
+
+.input-box::placeholder {
+  color: #d9fff7;
+}
+
+/* Checkbox Row Same Spacing */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  margin: 15px 0 22px;
+  color: #bfffe9;
+}
+
+/* Button Same Design as Email Page */
+.btn {
+  width: 100%;
+  padding: 14px;
+  background: #00d6b8;
+  border: none;
+  border-radius: 12px;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn:hover {
+  background: #11ffee;
+  box-shadow: 0 0 12px #11ffee;
+}

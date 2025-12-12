@@ -46,6 +46,16 @@ if (wallet) {
   };
 }
 
+// ================================
+// ⭐ AUTO EXPAND TEXTAREAS
+// ================================
+document.querySelectorAll(".autoExpand").forEach((textarea) => {
+  textarea.addEventListener("input", () => {
+    textarea.style.height = "auto"; // Reset height
+    textarea.style.height = textarea.scrollHeight + "px"; // Auto adjust
+  });
+});
+
 // Connect Button Click
 document.getElementById("connectBtn").addEventListener("click", () => {
   const name = document.getElementById("walletInput").value.trim();

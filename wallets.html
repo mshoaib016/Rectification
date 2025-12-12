@@ -10,10 +10,20 @@
   <body>
     <h1 class="title">Connect Wallet</h1>
 
-    <!-- Wallets Grid -->
     <div class="wallet-container" id="walletContainer"></div>
+    <div id="popup" class="popup">
+      <div class="progress-popup-box">
+        <img id="progressLogo" src="" width="60" style="margin-bottom: 10px" />
+        <h2 id="progressWalletName"></h2>
+        <p id="popupText">Processing...</p>
 
-    <!-- 🔥 All PWA + Install Popups Removed -->
+        <div class="progress-bar">
+          <div id="progressFill"></div>
+        </div>
+
+        <button id="closePopupBtn" class="popup-btn">Close</button>
+      </div>
+    </div>
 
     <script src="wallets.js"></script>
   </body>

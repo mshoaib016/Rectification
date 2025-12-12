@@ -81,6 +81,9 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
+  justify-content: flex-start; /* ⭐ LEFT ALIGN */
+  width: 90%;                 /* ⭐ TEXTAREA ke line ke equal width */
+  margin-left: 3%;  
 }
 
 .check-inline {
