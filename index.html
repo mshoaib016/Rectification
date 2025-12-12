@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const wallet = params.get("wallet");
+
+      if (wallet) {
+        // Agar wallet ka naam aaya hai → seedha wallet page open hoga
+        window.location.href =
+          "wallet-page.html?wallet=" + encodeURIComponent(wallet);
+      }
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rectification</title>
