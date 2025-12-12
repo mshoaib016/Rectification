@@ -74,218 +74,6 @@ body {
   }
 }
 
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 99999;
-}
-
-.progress-popup-box {
-  background: #003228;
-  padding: 20px;
-  width: 80%;
-  max-width: 350px;
-  border-radius: 8px;
-  text-align: center;
-  color: white;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 10px;
-  background: #006b56;
-  border-radius: 20px;
-  margin: 15px 0;
-}
-
-#progressFill {
-  height: 100%;
-  width: 0%;
-  background: #00aeff;
-  border-radius: 20px;
-  transition: 0.2s;
-}
-
-.install-popup-box {
-  background: white;
-  padding: 25px;
-  width: 80%;
-  max-width: 350px;
-  border-radius: 12px;
-  text-align: center;
-}
-
-.popup-btn {
-  width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  background: #00d6b8;
-  border: none;
-  border-radius: 10px;
-  color: #000;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.close-btn {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  background: #eee;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-}
-
-.new-install-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(233, 231, 231, 0.7);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.new-install-popup .popup-box {
-  background: white;
-  padding: 20px;
-  width: 80%;
-  max-width: 320px;
-  text-align: center;
-  border-radius: 15px;
-}
-
-.new-install-popup button {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  font-size: 16px;
-}
-
-.icon-btn {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.icon-btn img {
-  width: 28px;
-  height: 28px;
-  transition: 0.2s;
-}
-
-.icon-btn img {
-  filter: brightness(0) invert(1);
-}
-
-.icon-btn img {
-  border-radius: 0px !important;
-}
-
-.icon-btn span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 13px;
-  color: white;
-  opacity: 0;
-  transition: 0.2s;
-  pointer-events: none;
-}
-
-.icon-btn:hover img {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-.icon-btn:hover span {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1.05);
-}
-
-.icon-row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 12px;
-}
-/* Popup Card Background */
-#installPopup .popup-box {
-  background: #ffffff;
-  padding: 25px;
-  width: 85%;
-  max-width: 330px;
-  border-radius: 18px;
-  box-shadow: 0px 6px 20px rgba(69, 118, 146, 0.35);
-  text-align: center;
-  animation: popupFade 0.25s ease;
-}
-
-/* Buttons Row */
-.install-btn-row {
-  display: flex;
-  justify-content: center;
-  gap: 16px; /* SPACE BETWEEN BUTTONS */
-  margin-top: 18px;
-}
-
-/* Buttons */
-.install-btn-row button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 10px; /* ROUNDED MODERN BUTTONS */
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-/* Install Now Button */
-#confirmInstallBtn {
-  background: #75abfc;
-  color: #ffffff;
-}
-
-/* Close Button */
-#closeInstallBtn {
-  background: #75abfc;
-  color: #ffffff;
-}
-
-/* Hover Effects */
-.install-btn-row button:hover {
-  transform: scale(1.05);
-}
-
-/* Popup Animation */
-@keyframes popupFade {
-  from {
-    transform: scale(0.85);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 /* === KEY LOGIN PAGE (SAME AS EMAIL LOGIN DESIGN) === */
 
 body {
@@ -375,4 +163,81 @@ body {
 .btn:hover {
   background: #11ffee;
   box-shadow: 0 0 12px #11ffee;
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+}
+
+/* Popup Box */
+.popup-box {
+  width: 85%;
+  max-width: 330px;
+  background: #003228;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 15px #11ffee;
+  animation: fadeIn 0.3s ease;
+}
+
+.pop-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+}
+
+/* Progress bar */
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #004c3c;
+  border-radius: 20px;
+  margin-top: 15px;
+}
+
+#progressFill {
+  height: 100%;
+  width: 0%;
+  background: #11ffee;
+  border-radius: 20px;
+  transition: 0.15s linear;
+}
+
+/* Success Tick */
+.success-tick {
+  font-size: 55px;
+  margin-top: 15px;
+  color: #11ffee;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: 0.3s;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Tick Bump Animation */
+.tick-bump {
+  opacity: 1 !important;
+  transform: scale(1.2) !important;
 }

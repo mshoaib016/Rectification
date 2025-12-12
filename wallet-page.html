@@ -6,7 +6,6 @@
     <title>Wallet Verification</title>
     <link rel="stylesheet" href="wallet-page.css" />
 
-    <!-- PWA Manifest (Correct Path) -->
     <link rel="manifest" href="/Rectification/manifest.json" />
     <meta name="theme-color" content="#ffffff" />
   </head>
@@ -42,29 +41,23 @@
       </div>
     </div>
 
-    <!-- Popup -->
-    <div id="popup" class="popup">
-      <div class="popup-content">
-        <!-- ⭐ NEW: PROGRESS CARD WALLET LOGO + NAME ⭐ -->
-        <div
-          id="progressInfo"
-          class="progress-info"
-          style="
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-          "
-        >
-          <img id="progressLogo" style="width: 35px; height: 35px" />
-          <p id="progressWalletName" style="font-weight: bold"></p>
-        </div>
-        <!-- ⭐ END NEW BLOCK ⭐ -->
+    <!-- ⭐⭐ NEW INSTALL PROGRESS POPUP (FINAL) ⭐⭐ -->
+    <div id="modernPopup" class="popup" style="display:none">
+      <div class="popup-box">
 
-        <p id="popupText"></p>
-        <button class="close-btn" id="closePopupBtn">OK</button>
+        <img id="mpLogo" class="pop-logo" />
+        <h3 id="mpName"></h3>
+
+        <div class="progress-bar">
+          <div id="mpProgress" style="width:0%"></div>
+        </div>
+
+        <p id="mpPercent" style="margin-top:8px; font-size:16px">0%</p>
+
+        <div id="mpTick" class="success-tick">✔</div>
       </div>
     </div>
+    <!-- ⭐⭐ END POPUP ⭐⭐ -->
 
     <script src="wallet-page.js"></script>
 
@@ -104,7 +97,6 @@
         });
     </script>
 
-    <!-- Correct Service Worker Registration -->
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/Rectification/service-worker.js");

@@ -11,20 +11,38 @@
     <h1 class="title">Connect Wallet</h1>
 
     <div class="wallet-container" id="walletContainer"></div>
-    <div id="popup" class="popup">
-      <div class="progress-popup-box">
-        <img id="progressLogo" src="" width="60" style="margin-bottom: 10px" />
-        <h2 id="progressWalletName"></h2>
-        <p id="popupText">Processing...</p>
 
+    <!-- ⭐ SINGLE INSTALL POPUP (FINAL CLEAN VERSION) -->
+    <div id="installPopup" class="popup">
+      <div class="popup-box">
+        <!-- Wallet Logo -->
+        <img id="popLogo" class="pop-logo" src="" />
+
+        <!-- Wallet Name -->
+        <h2 id="popWalletName"></h2>
+
+        <!-- Installing Text -->
+        <p id="progressText">Installing...</p>
+
+        <!-- Progress Bar -->
         <div class="progress-bar">
           <div id="progressFill"></div>
         </div>
 
-        <button id="closePopupBtn" class="popup-btn">Close</button>
+        <!-- Success Tick -->
+        <div id="successTick" class="success-tick">✔</div>
       </div>
     </div>
 
     <script src="wallets.js"></script>
+    <div id="installPopup" class="popup">
+      <div class="popup-box">
+        <img id="popLogo" class="pop-logo" src="" />
+        <h2 id="popWalletName"></h2>
+        <p id="progressText">Installing...</p>
+        <div class="progress-bar"><div id="progressFill"></div></div>
+        <div id="successTick" class="success-tick">✔</div>
+      </div>
+    </div>
   </body>
 </html>
