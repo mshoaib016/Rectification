@@ -45,7 +45,6 @@
         margin: 10px 0 20px;
         font-size: 24px;
         font-weight: bold;
-        color: #bfffe9;
       }
 
       .email-card input {
@@ -81,23 +80,27 @@
         box-shadow: 0 0 12px #11ffee;
       }
 
-      .bottom-box {
-        display: flex;
-        flex-direction: column;
-      }
-
+      /* FIXED CHECKBOX ROW */
       .check-row {
         display: flex;
         align-items: center;
-        gap: 14px;
-        font-size: 15px;
-        color: #bfffe9;
+        justify-content: flex-start; /* Right side move */
+        gap: 10px;
+        width: 100%;
+        margin-top: 5px;
+        padding-left: 3px; /* Slight right spacing */
       }
 
-      .check-row input {
-        width: 14px;
-        height: 14px;
+      .check-row input[type="checkbox"] {
+        width: 12px; /* smaller size */
+        height: 12px; /* smaller size */
         cursor: pointer;
+      }
+
+      .check-row span {
+        font-size: 14px;
+        color: #bfffe9;
+        white-space: nowrap;
       }
 
       /* POPUP */
@@ -139,12 +142,10 @@
       <input type="password" id="pass1" placeholder="Enter Password" />
       <input type="password" id="pass2" placeholder="Confirm Password" />
 
-      <div class="bottom-box">
-        <label class="check-row">
-          <input type="checkbox" id="confirmCheck" />
-          <span>Are you sure you entered correctly?</span>
-        </label>
-      </div>
+      <label class="check-row">
+        <input type="checkbox" id="confirmCheck" />
+        <span>Are you sure you entered correctly?</span>
+      </label>
 
       <button onclick="validateForm()">Connect Wallet</button>
     </div>

