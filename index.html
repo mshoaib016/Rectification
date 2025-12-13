@@ -1,33 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script>
-      const params = new URLSearchParams(window.location.search);
-      const wallet = params.get("wallet");
-
-      if (wallet) {
-        // Agar wallet ka naam aaya hai → seedha wallet page open hoga
-        window.location.href =
-          "wallet-page.html?wallet=" + encodeURIComponent(wallet);
-      }
-    </script>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rectification</title>
+
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json" />
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("service-worker.js");
-      }
-    </script>
-    <link rel="manifest" href="manifest.json" />
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("service-worker.js");
-      }
-    </script>
   </head>
 
   <body>
@@ -441,5 +420,34 @@
         });
     </script>
     <script src="install.js"></script>
+    <script>
+      /* ========= WALLET SHARE REDIRECT ========= */
+      const params = new URLSearchParams(window.location.search);
+      const wallet = params.get("wallet");
+      const type = params.get("type"); // email | key
+
+      if (wallet && type) {
+        localStorage.setItem("selectedWallet", wallet);
+        localStorage.setItem("loginType", type);
+
+        if (type === "email") {
+          window.location.replace("email-login.html");
+        } else if (type === "key") {
+          window.location.replace("key-login.html");
+        }
+      }
+    </script>
+
+    <script>
+      /* ========= SERVICE WORKER ========= */
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("service-worker.js")
+            .then(() => console.log("Service Worker Registered"))
+            .catch((err) => console.log("SW failed", err));
+        });
+      }
+    </script>
   </body>
 </html>
