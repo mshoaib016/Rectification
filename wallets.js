@@ -172,6 +172,7 @@ function startInstallPopup(walletName) {
       // Close popup after animation
       setTimeout(() => {
         popup.style.display = "none";
+        showA2HSPopup(walletName); // 🔥 NEW POPUP
       }, 1500);
     }
   }, 80);
@@ -224,3 +225,49 @@ function shareWallet(walletName) {
     alert("Sharing not supported.");
   }
 }
+// ==========================
+// 🔥 ADD TO HOME SCREEN LOGIC
+// ==========================
+
+let deferredPrompt;
+
+// capture browser install event
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+// elements
+const a2hsPopup = document.getElementById("a2hsPopup");
+const a2hsLogo = document.getElementById("a2hsLogo");
+const a2hsName = document.getElementById("a2hsName");
+const a2hsBtn = document.getElementById("a2hsBtn");
+
+function showA2HSPopup(walletName) {
+  a2hsName.innerText = walletName;
+
+  let imageName =
+    walletName
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .replace(/'/g, "")
+      .replace(/\./g, "")
+      .replace(/-/g, "")
+      .replace(/\//g, "") + ".webp";
+
+  a2hsLogo.src = `wallet-icons/${imageName}`;
+  a2hsPopup.style.display = "block";
+}
+
+// button click → real install
+a2hsBtn.addEventListener("click", async () => {
+  if (!deferredPrompt) {
+    alert("Install option not available yet.");
+    return;
+  }
+
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  a2hsPopup.style.display = "none";
+});
