@@ -260,3 +260,9 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
+#a2hsPopup {
+  display: none;
+}
+.debug-show {
+  display: block !important;
+}

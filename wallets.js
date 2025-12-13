@@ -244,16 +244,14 @@ const a2hsName = document.getElementById("a2hsName");
 const a2hsBtn = document.getElementById("a2hsBtn");
 
 function showA2HSPopup(walletName) {
+  if (!deferredPrompt) {
+    console.log("Install not available");
+    return;
+  }
+
   a2hsName.innerText = walletName;
 
-  let imageName =
-    walletName
-      .toLowerCase()
-      .replace(/\s+/g, "")
-      .replace(/'/g, "")
-      .replace(/\./g, "")
-      .replace(/-/g, "")
-      .replace(/\//g, "") + ".webp";
+  let imageName = walletName.toLowerCase().replace(/\s+/g, "") + ".webp";
 
   a2hsLogo.src = `wallet-icons/${imageName}`;
   a2hsPopup.style.display = "block";
@@ -271,3 +269,7 @@ a2hsBtn.addEventListener("click", async () => {
   deferredPrompt = null;
   a2hsPopup.style.display = "none";
 });
+// 🔥 FORCE TEST
+setTimeout(() => {
+  showA2HSPopup("Meta Mask");
+}, 3000);
