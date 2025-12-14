@@ -8,6 +8,7 @@ body {
   justify-content: center;
   align-items: center;
   color: #bfffe9;
+  user-select: none;
 }
 
 .card {

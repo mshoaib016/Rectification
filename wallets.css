@@ -2,6 +2,7 @@ body {
   margin: 0;
   background: linear-gradient(to bottom, #003125, #00816c, #00bd8e, #003125);
   font-family: "Montserrat", sans-serif;
+  user-select: none;
 }
 
 .title {
