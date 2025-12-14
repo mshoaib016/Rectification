@@ -81,8 +81,8 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  justify-content: flex-start; /* ⭐ LEFT ALIGN */
-  width: 90%;                 /* ⭐ TEXTAREA ke line ke equal width */
+  justify-content: flex-start;
+  width: 90%;
   margin-left: 3%;  
 }
 
@@ -91,7 +91,6 @@ body {
   height: 16px;
 }
 
-/* Popup */
 .popup {
   display: none;
   position: fixed;

