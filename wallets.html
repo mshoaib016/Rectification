@@ -41,5 +41,48 @@
       <h3 id="a2hsName"></h3>
       <button id="a2hsBtn">Add To Home Screen</button>
     </div>
+    <!-- Desktop Only Popup -->
+    <div
+      id="desktopOnlyPopup"
+      style="
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+      "
+    >
+      <div
+        style="
+          background: #fff;
+          padding: 25px 30px;
+          border-radius: 12px;
+          max-width: 420px;
+          width: 90%;
+          text-align: center;
+        "
+      >
+        <h3 style="margin-bottom: 10px">Mobile Required</h3>
+        <p style="margin-bottom: 20px">
+          This function works only on mobile devices. Please open this website
+          on your mobile phone.
+        </p>
+        <button
+          onclick="closeDesktopOnlyPopup()"
+          style="
+            background: #0d6efd;
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+          "
+        >
+          OK
+        </button>
+      </div>
+    </div>
   </body>
 </html>

